@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/homeicon"
+        android:id="@+id/bottom_nav_home"
+        android:title="Home"/>
+
+    <item
+        android:icon="@drawable/donation"
+        android:id="@+id/bottom_nav_donation"
+        android:title="Donation"
+        />
+    <item
+        android:icon="@drawable/baseline_bookmark_24"
+        android:id="@+id/bottom_nav_bookmark"
+        android:title="Bookmark"
+        />
+    <item
+        android:icon="@drawable/setting"
+        android:id="@+id/bottom_nav_setting"
+        android:title="Setting"
+        />
+</menu>

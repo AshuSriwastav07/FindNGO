@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.7"
+    tools:context=".EnterDonationData">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/uploadNGOName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:ems="10"
+            android:hint="Enter NGO Name"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/uploadNGOFundUse"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:ems="10"
+            android:hint="Enter NGO Fund Usage"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/uploadNGODonationImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:ems="10"
+            android:hint="Enter NGO Donation Image Link"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/uploadNGODonationSiteLink"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:ems="10"
+            android:hint="Enter NGO Donation Site Link"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/UploadNGODonationDataButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:alpha="1"
+            android:backgroundTint="#354653"
+            android:drawableLeft="@drawable/upload"
+            android:text="Upload Data" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/donationbg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

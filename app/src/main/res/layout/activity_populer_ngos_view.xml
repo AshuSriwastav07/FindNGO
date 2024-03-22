@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OpenNGOData">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bookmark"
+        android:id="@+id/bookmarkButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="NGO Finder"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#4CEF4F"
+            android:textSize="@dimen/dp_12"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableStart="@drawable/name"
+                        android:drawablePadding="10dp"
+                        android:gravity="top"
+                        android:text="Name"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGOName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="10dp"
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableStart="@drawable/address"
+                        android:drawablePadding="10dp"
+                        android:gravity="top"
+                        android:text="Address"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGOAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="10dp"
+                        android:textSize="@dimen/dp_7" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"
+                        android:drawableStart="@drawable/regid"
+                        android:drawablePadding="10dp"
+                        android:gravity="top"
+                        android:singleLine="false"
+                        android:text="Registration No"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGO_RegistrationNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableStart="@drawable/phonenumber"
+                        android:drawablePadding="10dp"
+                        android:gravity="top"
+                        android:text="Contact"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGO_PhoneNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingStart="10dp"
+                        android:text=""
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableStart="@drawable/mail"
+                        android:drawablePadding="10dp"
+                        android:gravity="top"
+                        android:text="Mail"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGO_MailID"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/dp_7" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableStart="@drawable/type"
+                        android:drawablePadding="10dp"
+                        android:gravity="top"
+                        android:text="Type"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGO_Type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableLeft="@drawable/unique"
+                        android:gravity="top"
+                        android:text="Unique ID"
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGO_UniqueID"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableLeft="@drawable/sector"
+                        android:gravity="top"
+                        android:text="Sectors "
+                        android:textSize="@dimen/dp_7" />
+
+                    <TextView
+                        android:id="@+id/NGO_Sectors"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:drawableLeft="@drawable/site"
+                        android:gravity="top"
+                        android:text="Website "
+                        android:textSize="@dimen/dp_7" />
+
+                    <Button
+                        android:id="@+id/NGO_site"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_button_background_on"
+                        android:text="Visit Site"
+                        android:textSize="@dimen/dp_7" />
+                </LinearLayout>
+
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/scrollview"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:scrollbarStyle="outsideOverlay">
+
+                        <ImageView
+                            android:id="@+id/PopulerViewImage1"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:background="@drawable/round_corner"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/explore1" />
+
+                        <ImageView
+                            android:id="@+id/PopulerViewImage2"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:layout_weight="1"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/explore1" />
+
+                        <ImageView
+                            android:id="@+id/PopulerViewImage3"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:layout_weight="1"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/explore1" />
+
+                        <ImageView
+                            android:id="@+id/PopulerViewImage4"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:layout_weight="1"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/explore1" />
+
+                        <ImageView
+                            android:id="@+id/PopulerViewImage5"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:layout_weight="1"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/explore1" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
