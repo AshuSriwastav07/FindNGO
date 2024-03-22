@@ -64,11 +64,13 @@ We would like to thank the Government of India for providing access to the NGO D
 
 Thank you for using **NGO Finder**! Together, we can make a difference in building a better world for all.
 
-![1](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/418c1850-1868-4afe-a1d9-d8be5dfb71f5) ![2](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/ad5a605d-6d1c-4797-9b03-cf44d2b1a50d)
-![3](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/c269ffbf-e740-479e-b162-cf5a87ddecb0)![4](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/7e9e8ab6-f95e-4d21-831b-338ecfad4bd3)
-![5](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/7f7a8386-6209-42bd-8cb6-c824be083645) ![6](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/c0cce6d5-8d75-4ab0-929a-3f0e82775d79)
-![7](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/b8decd07-8c10-49a3-ba5d-a7a732083d78) ![8](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/ad44764f-f158-4cea-ab7c-c91f7829383a)
-![9](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/1ee1b43b-9f56-4b7e-a390-de3fa8f1649f) ![10](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/78d76aad-9b73-4258-b7f3-4715873826e6)
-![11](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/c5573095-b979-4d17-b387-122bc78b4c50) ![12](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/f1607269-d8f8-4410-95e8-ffde93d64b92)
-![13](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/bb6115f6-3a73-4f8e-96ef-e0f4d1c63e6f) ![14](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/1b4e082c-88c1-471a-beb2-79cccc4dd7ad)
-![15](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/35a44309-e38b-4dd1-aa49-26b00d7ec0f7) 
+![1](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/dffe5e3a-288b-405e-b7a6-9e6598a3e537) ![2](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/128df0a6-917a-4914-9db3-e9db639f05b1) ![3](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/1e3f8a79-4be3-40b9-90f1-d2607502c6e5) ![4](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/63af7d7c-e420-4e6b-a18a-782ebe63a098)
+![5](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/d620663b-be82-4d76-9897-0676a303a0b9) ![6](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/b88832c8-31c6-418f-a245-21c661c52f74)
+![7](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/667398cd-b7c0-4342-81da-6486c65fa920)  ![8](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/a24e48a4-c34e-4692-ac91-00a67d3c5deb) 
+![9](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/ee4f544a-28b0-474a-84f8-255f489b5641)  ![10](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/b84d2c2b-9267-49ba-b65f-d86c3e57d860)
+![11](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/423bff55-b3dd-4e51-be87-e02c6bf9e915) ![12](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/f99e11ba-0acf-48c3-a0b9-3a9dd7e053eb)
+![13](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/56206b97-0dff-404f-953a-7dfce5993506) ![14](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/8f30adc9-b22d-4480-b09e-f29243ce76ec)
+![15](https://github.com/AshuSriwastav07/FindNGO/assets/68800012/ba6047ba-7d4d-4a28-a2e1-8ae3b96c0e20)
+
+
+
