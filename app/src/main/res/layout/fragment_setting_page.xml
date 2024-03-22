@@ -5,8 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".SettingPageFragment">
 
-    <ListView
-        android:id="@+id/settingListView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif"
+            android:text="Settings"
+            android:textAlignment="center"
+            android:textSize="@dimen/dp_10"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/settingListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </FrameLayout>

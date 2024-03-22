@@ -338,6 +338,7 @@ try {
         val database = Firebase.database
         val CategoryDataKey: ArrayList<String> = ArrayList<String>()
         val fetchData = database.getReference("NGO_DATA")
+        val intent=Intent(context,CategoryListView::class.java)
 
         fetchData.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -350,28 +351,52 @@ try {
 
                     when(categoryNumber){
                         1 -> if (ngoData[8].contains("Agriculture")) {
-                            CategoryDataKey.add(keys)}
+                            CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Agriculture")
+
+                        }
 
                         2 -> if (ngoData[8].contains("Art") || ngoData[8].contains("culture") ) {
-                                CategoryDataKey.add(keys)}
+                                CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Arts and Culture")
+
+                        }
 
                         3 -> if (ngoData[8].contains("Child") || ngoData[8].contains("children") || ngoData[8].contains("Child Education") || ngoData[8].contains("Education") ) {
-                                CategoryDataKey.add(keys)}
+                                CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Child Education")
+
+                        }
 
                         4 -> if (ngoData[8].contains("Women") || ngoData[8].contains("Women's Development & Empowerment")) {
-                                CategoryDataKey.add(keys)}
+                                CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Women")
+
+                        }
 
                         5 -> if (ngoData[8].contains("Environment & Forests") || ngoData[8].contains("Environment")) {
-                                CategoryDataKey.add(keys)}
+                                CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Environment")
+
+                        }
 
                         6 -> if (ngoData[8].contains("Education") || ngoData[8].contains("Education & Literacy")) {
-                                CategoryDataKey.add(keys)}
+                                CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Education")
+
+                        }
 
                         7 -> if (ngoData[8].contains("Animal") || ngoData[8].contains("Animal Husbandry") || ngoData[8].contains("Dairying & Fisheries") || ngoData[8].contains("animal welfare")) {
-                            CategoryDataKey.add(keys)}
+                            CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Animal's NGO")
+
+                        }
 
                         8 -> if (ngoData[8].contains("Human Rights") || ngoData[8].contains("Right to Information & Advocacy,Rural Development & Poverty Alleviation")) {
-                            CategoryDataKey.add(keys)}
+                            CategoryDataKey.add(keys)
+                            intent.putExtra("categoryName","Human Rights")
+
+                        }
 
                     }
 
@@ -380,7 +405,6 @@ try {
 
                     }
 
-                val intent=Intent(context,CategoryListView::class.java)
                 intent.putStringArrayListExtra("categoryKeyList",CategoryDataKey)
                 startActivity(intent)
 //                Log.d("DataListView",CategoryDataKey.toString())

@@ -5,8 +5,25 @@
     android:layout_height="match_parent"
     tools:context=".BookmarkPageFragment">
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/bookmarkPageListView"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:text="Bookmarks"
+            android:textAlignment="center"
+            android:textSize="@dimen/dp_10"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/bookmarkPageListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </FrameLayout>

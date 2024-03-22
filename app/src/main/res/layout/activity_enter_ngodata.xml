@@ -18,6 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Add NGO Profile"
+            android:textAlignment="center"
+            android:textSize="@dimen/dp_10"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/uploadNGOName"
             android:layout_width="match_parent"

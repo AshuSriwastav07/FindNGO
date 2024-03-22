@@ -19,6 +19,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Add Donation NGO Data"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dp_10"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/uploadNGOName"
             android:layout_width="match_parent"

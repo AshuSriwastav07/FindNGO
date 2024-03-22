@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
@@ -20,8 +21,11 @@ class CategoryListView : AppCompatActivity() {
 
         val ListView: ListView =findViewById(R.id.category_ngo_listview)
 
+        val textview:TextView=findViewById(R.id.textView5)
 
         val ListDataKeys: MutableList<String>? = intent.getStringArrayListExtra("categoryKeyList")
+        val categoryName=intent.getStringExtra("categoryName")
+        textview.setText(categoryName)
 
         Log.d("DataListView1",ListDataKeys.toString())
 
@@ -78,11 +82,6 @@ class CategoryListView : AppCompatActivity() {
         intent.putStringArrayListExtra("All_NGO_Data", ArrayList(itemData))
 
         val check=itemData[8]
-        if(check.contains("Art")){
-
-            Log.d("ListViewData", "Yes")
-
-        }
 
         startActivity(intent)
     }
