@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import com.tlc.findngo.R
 
 
 class CustomArrayAdapter(context: Context, private val items: List<String>, private val ImageLink: MutableList<List<String>>) :

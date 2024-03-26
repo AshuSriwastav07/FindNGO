@@ -2,6 +2,7 @@ package com.example.findngo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.tlc.findngo.R
 
 class AboutUs : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

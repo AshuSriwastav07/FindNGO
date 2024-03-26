@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import com.tlc.findngo.R
 
 class CustomeDonationAdapter(
     context: Context,
@@ -30,21 +31,21 @@ class CustomeDonationAdapter(
         val imageView=rowView.findViewById<ImageView>(R.id.donationImageView)
         val donationbutton=rowView.findViewById<Button>(R.id.donationbutton)
 
-        NameView.text = items[position].toString()
-        DetailsView.text = details[position].toString()
+        NameView.text = items[position]
+        DetailsView.text = details[position]
 
 
         Log.d("RTDB_Value",items.last().toString())
 
         Picasso.get()
-            .load(ImageLink[position].toString())
+            .load(ImageLink[position])
             .into(imageView)
 
 
         donationbutton.setOnClickListener{
             val urlIntent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(DonationLink[position].toString())
+                Uri.parse(DonationLink[position])
             )
 
             context.startActivity(urlIntent)

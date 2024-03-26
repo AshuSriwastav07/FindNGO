@@ -11,30 +11,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FindNGO"
-        tools:targetApi="31">
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="33">
         <activity
-            android:name=".AboutUs"
+            android:name="com.example.findngo.AboutUs"
             android:exported="false" />
         <activity
-            android:name=".EnterDonationData"
+            android:name="com.example.findngo.EnterDonationData"
             android:exported="false" />
         <activity
-            android:name=".EnterNGOData"
+            android:name="com.example.findngo.EnterNGOData"
             android:exported="false" />
         <activity
-            android:name=".CategoryListView"
+            android:name="com.example.findngo.CategoryListView"
             android:exported="false" />
         <activity
-            android:name=".All_NGO_ListView"
+            android:name="com.example.findngo.All_NGO_ListView"
             android:exported="false" />
         <activity
-            android:name=".OpenNGOData"
+            android:name="com.example.findngo.OpenNGOData"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name="com.example.findngo.HomePage"
             android:exported="false" />
         <activity
-            android:name=".ExplorePage"
+            android:name="com.example.findngo.ExplorePage"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>

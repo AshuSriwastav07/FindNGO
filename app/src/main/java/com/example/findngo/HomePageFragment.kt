@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
 import com.squareup.picasso.Picasso
+import com.tlc.findngo.R
 
 import kotlin.collections.ArrayList
 
@@ -152,7 +153,7 @@ class HomePageFragment : Fragment() {
                 if (dataSnapshot.exists()) {
                     // Loop through each child of the root reference
                     for (childSnapshot in dataSnapshot.children) {
-                        val key = childSnapshot.key ?: "" // Get the key of the child
+                        /*val key = childSnapshot.key ?: "" // Get the key of the child*/
                         val value = childSnapshot.value // Get the value of the child
 
 

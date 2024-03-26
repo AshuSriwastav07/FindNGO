@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.tlc.findngo.R
 import java.util.ArrayList
 
 class OpenNGOData : AppCompatActivity() {
@@ -40,7 +41,7 @@ class OpenNGOData : AppCompatActivity() {
     private fun ShowDataInActivity(toShow: List<String>?,DB_Helper:BookmarkDB) {
         Log.d("RTDB_Value6", toShow.get(0).toString())
         if (toShow != null) { // Ensure there's enough data
-            Log.d("RTDB_Value7", toShow.get(0).toString())
+            Log.d("RTDB_Value7", toShow.get(0))
 
             val NGO_Name: TextView = findViewById(R.id.NGOName)
             val NGO_Address: TextView = findViewById(R.id.NGOAddress)

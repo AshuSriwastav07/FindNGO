@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
+import com.tlc.findngo.R
 
 class All_NGO_ListView : AppCompatActivity() {
 
@@ -21,8 +22,6 @@ class All_NGO_ListView : AppCompatActivity() {
         setContentView(R.layout.activity_all_ngo_list_view)
 
         val ListView: ListView=findViewById(R.id.ngo_listview)
-
-        val MyDBHelper = BookmarkDB(this)
 
 
         val database = Firebase.database

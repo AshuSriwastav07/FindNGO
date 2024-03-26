@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.findngo"
+    namespace = "com.tlc.findngo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.findngo"
+        applicationId = "com.tlc.findngo"
         minSdk = 21
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +22,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -49,8 +50,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity:1.8.2")
     implementation("com.google.firebase:firebase-database:20.3.1")
-    implementation("com.android.car.ui:car-ui-lib:2.6.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.6.2")
+    implementation("com.google.firebase:firebase-crashlytics:18.6.3")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

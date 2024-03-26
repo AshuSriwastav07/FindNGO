@@ -10,8 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
+import com.tlc.findngo.R
 
 class BookmarkPageFragment : Fragment() {
 

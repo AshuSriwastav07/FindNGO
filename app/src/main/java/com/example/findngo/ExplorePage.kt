@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.tlc.findngo.R
 
 class ExplorePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

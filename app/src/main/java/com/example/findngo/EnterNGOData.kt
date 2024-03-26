@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.findngo.databinding.ActivityEnterNgodataBinding
-import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tlc.findngo.databinding.ActivityEnterNgodataBinding
 
 
 class EnterNGOData : AppCompatActivity() {
@@ -56,7 +55,7 @@ class EnterNGOData : AppCompatActivity() {
 
                    val NewKeyNumber:Int=Totalkeys.size+1
 
-                   val NewDataKey:String= "NGO_Finder_Data_$NewKeyNumber"
+                   val NewDataKey= "NGO_Finder_Data_$NewKeyNumber"
 
                    val ngoData:ArrayList<String> = arrayListOf()
 
