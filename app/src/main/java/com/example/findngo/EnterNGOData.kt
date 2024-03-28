@@ -59,6 +59,7 @@ class EnterNGOData : AppCompatActivity() {
 
                    val ngoData:ArrayList<String> = arrayListOf()
 
+                   if(NGOName.isNotEmpty() && NGOAddress.isNotEmpty() && NGORegID.isNotEmpty() && NGOPhoneNo.isNotEmpty() && NGOEmail.isNotEmpty() && NGOType.isNotEmpty() && NGOUniqueID.isNotEmpty() && NGOImage.isNotEmpty() && NGOSectors.isNotEmpty() && NGOSiteLink.isNotEmpty()){
                    ngoData.add(NGOName)
                    ngoData.add(NGOAddress)
                    ngoData.add(NGORegID)
@@ -70,27 +71,34 @@ class EnterNGOData : AppCompatActivity() {
                    ngoData.add(NGOSectors)
                    ngoData.add(NGOSiteLink)
 
+                       databaseref.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
 
-                   databaseref.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
+                           bindingEnterNGOData.uploadNGOName.text.clear()
+                           bindingEnterNGOData.uploadNGOAddress.text.clear()
+                           bindingEnterNGOData.uploadNGORegID.text.clear()
+                           bindingEnterNGOData.uploadNGOPhoneNo.text.clear()
+                           bindingEnterNGOData.uploadNGOEmail.text.clear()
+                           bindingEnterNGOData.uploadNGOType.text.clear()
+                           bindingEnterNGOData.uploadNGOUniqueID.text.clear()
+                           bindingEnterNGOData.uploadNGOLogoImage.text.clear()
+                           bindingEnterNGOData.uploadNGOSectors.text.clear()
+                           bindingEnterNGOData.uploadNGOSiteLink.text.clear()
 
-                       bindingEnterNGOData.uploadNGOName.text.clear()
-                       bindingEnterNGOData.uploadNGOAddress.text.clear()
-                       bindingEnterNGOData.uploadNGORegID.text.clear()
-                       bindingEnterNGOData.uploadNGOPhoneNo.text.clear()
-                       bindingEnterNGOData.uploadNGOEmail.text.clear()
-                       bindingEnterNGOData.uploadNGOType.text.clear()
-                       bindingEnterNGOData.uploadNGOUniqueID.text.clear()
-                       bindingEnterNGOData.uploadNGOLogoImage.text.clear()
-                       bindingEnterNGOData.uploadNGOSectors.text.clear()
-                       bindingEnterNGOData.uploadNGOSiteLink.text.clear()
-
-                       Toast.makeText(this@EnterNGOData,"Data is Saved",Toast.LENGTH_LONG).show()
+                           Toast.makeText(this@EnterNGOData, "Data is Saved", Toast.LENGTH_LONG)
+                               .show()
 
 
-                   }.addOnFailureListener{
-                       Toast.makeText(this@EnterNGOData,"Failed to Save Data",Toast.LENGTH_LONG).show()
+                       }.addOnFailureListener {
+                           Toast.makeText(
+                               this@EnterNGOData,
+                               "Failed to Save Data",
+                               Toast.LENGTH_LONG
+                           ).show()
+                       }
+                   }else{
+                       Toast.makeText(this@EnterNGOData, "Please fill all the filed!", Toast.LENGTH_SHORT).show()
+
                    }
-
                }
 
                override fun onCancelled(error: DatabaseError) {} //onCancelled

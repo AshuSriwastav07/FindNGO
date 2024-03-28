@@ -44,6 +44,8 @@ class DonationPageFragment : Fragment() {
                     donationLink.clear()
 
 
+
+
                     if(snapshot.exists()){
                     for (i in snapshot.children) {
 
@@ -53,6 +55,12 @@ class DonationPageFragment : Fragment() {
                         details.add(ngoData[1])
                         ImageLinkData.add(ngoData[2])
                         donationLink.add(ngoData[3])
+
+                        Log.e("FirebaseError",ngoData[0])
+                        Log.e("FirebaseError",ngoData[1])
+                        Log.e("FirebaseError",ngoData[2])
+                        Log.e("FirebaseError",ngoData[3])
+                        Log.e("FirebaseError","---------------------------")
 
 
                     }
@@ -81,7 +89,7 @@ class DonationPageFragment : Fragment() {
                     Log.e("DonationPageFragment", "Error fetching data: $error")
                     // Handle the error appropriately, e.g., display an error message to the user
                 }
-                
+
 
 
             })

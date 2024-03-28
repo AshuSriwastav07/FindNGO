@@ -49,7 +49,7 @@ class BookmarkPageFragment : Fragment() {
 
 
 
-        listview.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        listview.onItemClickListener = AdapterView.OnItemClickListener { _, view, position, _ ->
             val selectedItem = DataToShowMain[position]
             // Call your function with the clicked item's data here
             OpenNGODetails((selectedItem))

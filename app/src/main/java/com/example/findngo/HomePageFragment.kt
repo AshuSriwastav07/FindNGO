@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
@@ -238,35 +239,40 @@ class HomePageFragment : Fragment() {
         fetchDataKey.addValueEventListener(object : ValueEventListener { //retrieve data from firebase DB
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val listOfKeys = ArrayList<String>() // Create a local list to store keys
                 if (dataSnapshot.exists()) {
-                    for (childSnapshot in dataSnapshot.children) {  //all children will be pass once in childSnapshot
-                        val value = childSnapshot.value  //get value of the childSnapshot
-                        listOfKeys.add(value.toString())  //add into list
+                    val listOfKeys = ArrayList<String>()
+                    for (childSnapshot in dataSnapshot.children) {
+                        val value = childSnapshot.getValue(String::class.java)
+                        value?.let {
+                            listOfKeys.add(it)
+                        }
                     }
-                    // Once all keys are collected, process each key
-                    for (i in listOfKeys.indices) {  //pass feched key into next loop to get data from DB
+
+                    for (i in listOfKeys.indices) {
                         val fetchData = database.getReference("NGO_DATA").child(listOfKeys[i])
-                        fetchData.addValueEventListener(object : ValueEventListener {
+                        fetchData.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                val list = snapshot.getValue<List<String>>()  //fetch excepted data from DB List and it's string
-                                if (list != null && list.size >= 2) { // Ensure list has at least two elements
+
+                                val listType = object : GenericTypeIndicator<List<String>>() {}
+                                val list = snapshot.getValue(listType)
+
+
+                                if (!list.isNullOrEmpty() && list.size >= 1) {
                                     val nameTextView = view?.findViewById<TextView>(NameList[i])
                                     val addressTextView = view?.findViewById<TextView>(AddressList[i])
-                                    val ImageShowView=view?.findViewById<ImageView>(ImageList[i])
+                                    val imageShowView = view?.findViewById<ImageView>(ImageList[i])
 
                                     Picasso.get()
-                                        .load(list[7])
-                                        .into(ImageShowView)
+                                        .load(list[7].toString())
+                                        .into(imageShowView)
 
-
-                                    nameTextView?.text = list[0]  //set data into text
-                                    addressTextView?.text = list[1]
-
+                                    nameTextView?.text = list[0].toString()
+                                    addressTextView?.text = list[1].toString()
                                 }
                             }
+
                             override fun onCancelled(error: DatabaseError) {
-                                Log.w("RTDB_Value", "Failed to read value", error.toException())
+                                Log.e("RTDB_Value", "Failed to read value", error.toException())
                             }
                         })
                     }
@@ -274,9 +280,11 @@ class HomePageFragment : Fragment() {
                     Log.d("RTDB_Value", "No data found")
                 }
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w("RTDB_Value", "Failed to read value", databaseError.toException())
             }
+
         })
     }catch (e:Exception){
         Log.e("AppCrash",e.toString())

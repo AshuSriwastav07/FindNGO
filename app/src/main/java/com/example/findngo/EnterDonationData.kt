@@ -53,27 +53,32 @@ class EnterDonationData : AppCompatActivity() {
 
                         val ngoData: ArrayList<String> = arrayListOf()
 
-                        if (NGOName != null && NGOFundUse != null && NGOLogoImage != null && NGOSiteLink != null) {
+                        if (!NGOName.isNullOrEmpty() && !NGOFundUse.isNullOrEmpty() && !NGOLogoImage.isNullOrEmpty() && !NGOSiteLink.isNullOrEmpty()) {
                             ngoData.add(NGOName)
                             ngoData.add(NGOFundUse)
                             ngoData.add(NGOLogoImage)
                             ngoData.add(NGOSiteLink)
-                        }
+
 
                         databaseref.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
-                            ClearInput()
-                        }.addOnFailureListener {
+                            ClearInput() }.addOnFailureListener {
                             ClearInput()
                             Toast.makeText(
                                 this@EnterDonationData,
                                 "Failed to Save Data",
                                 Toast.LENGTH_LONG
                             ).show()
+                        }}else{
+                            Toast.makeText(this@EnterDonationData, "Please fill all The Filed!", Toast.LENGTH_SHORT).show()
+
                         }
 
                     }
 
-                    override fun onCancelled(error: DatabaseError) {} //onCancelled
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("DonationPageFragment", "Error fetching data: $error")
+                        // Handle the error appropriately, e.g., display an error message to the user
+                    }
                 })
 
             }

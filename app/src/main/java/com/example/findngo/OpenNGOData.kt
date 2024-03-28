@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -39,9 +40,11 @@ class OpenNGOData : AppCompatActivity() {
 
     }
     private fun ShowDataInActivity(toShow: List<String>?,DB_Helper:BookmarkDB) {
-        Log.d("RTDB_Value6", toShow.get(0).toString())
+        if (toShow != null) {
+            Log.d("RTDB_Value6", toShow[0].toString())
+        }
         if (toShow != null) { // Ensure there's enough data
-            Log.d("RTDB_Value7", toShow.get(0))
+            Log.d("RTDB_Value7", toShow[0])
 
             val NGO_Name: TextView = findViewById(R.id.NGOName)
             val NGO_Address: TextView = findViewById(R.id.NGOAddress)
@@ -52,7 +55,7 @@ class OpenNGOData : AppCompatActivity() {
             val NGO_UniqueID: TextView = findViewById(R.id.NGO_UniqueID)
             val NGO_Sector: TextView = findViewById(R.id.NGO_Sectors)
             val NGO_Site: Button = findViewById(R.id.NGO_site)
-            val bookmarkButton:Button=findViewById(R.id.bookmarkButton)
+            val bookmarkButton:ImageButton=findViewById(R.id.bookmarkButton)
 
 
 
@@ -88,11 +91,13 @@ class OpenNGOData : AppCompatActivity() {
 
 
             if(list.contains(toShow[0])){
-                    bookmarkButton.visibility = View.GONE
+                    bookmarkButton.setImageResource(R.drawable.baseline_bookmark_added_24)
             }else{
 
             bookmarkButton.setOnClickListener{
                 DB_Helper.addBookmark(toShow[0],toShow[1],toShow[2], toShow[3], toShow[4], toShow[5], toShow[6],toShow[7],toShow[8],toShow[9])
+                bookmarkButton.setImageResource(R.drawable.baseline_bookmark_added_24)
+
                         }
             }
 
@@ -105,17 +110,6 @@ class OpenNGOData : AppCompatActivity() {
 
 
 
-    companion object {
-        override fun toString(): String {
-
-            return TODO("Provide the return value")
-        }
-    }
 
 }
-
-operator fun Any?.get(i: Int) {
-
-}
-
 

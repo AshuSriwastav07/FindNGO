@@ -55,7 +55,7 @@ class All_NGO_ListView : AppCompatActivity() {
                 }
 
 
-                ListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                ListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                     val selectedItem = DataToShowMain[position]
                     // Call your function with the clicked item's data here
                     yourFunction((selectedItem))

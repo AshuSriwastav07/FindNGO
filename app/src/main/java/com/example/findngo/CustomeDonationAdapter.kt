@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.tlc.findngo.R
 
@@ -31,26 +32,31 @@ class CustomeDonationAdapter(
         val imageView=rowView.findViewById<ImageView>(R.id.donationImageView)
         val donationbutton=rowView.findViewById<Button>(R.id.donationbutton)
 
-        NameView.text = items[position]
-        DetailsView.text = details[position]
+
+        if(items.isNotEmpty() && details.isNotEmpty() && ImageLink.isNotEmpty() && DonationLink.isNotEmpty()) {
+            NameView.text = items[position]
+            DetailsView.text = details[position]
 
 
-        Log.d("RTDB_Value",items.last().toString())
+            Log.d("RTDB_Value", items.last().toString())
 
-        Picasso.get()
-            .load(ImageLink[position])
-            .into(imageView)
+            Picasso.get()
+                .load(ImageLink[position])
+                .into(imageView)
 
 
-        donationbutton.setOnClickListener{
-            val urlIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(DonationLink[position])
-            )
+            donationbutton.setOnClickListener {
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(DonationLink[position])
+                )
 
-            context.startActivity(urlIntent)
+                context.startActivity(urlIntent)
+            }
+        }else{
+            Toast.makeText(context, "No Donation Data Available", Toast.LENGTH_SHORT).show()
+
         }
-
         return rowView
     }
 }

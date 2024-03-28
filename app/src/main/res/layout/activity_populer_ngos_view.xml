@@ -4,21 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".OpenNGOData">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bookmark"
-        android:id="@+id/bookmarkButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         android:paddingTop="20dp"
         android:paddingBottom="35dp"
@@ -27,18 +19,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="NGO Finder"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#4CEF4F"
-            android:textSize="@dimen/dp_12"
-            android:textStyle="bold"
-            android:typeface="serif" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="NGO Finder"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#4CEF4F"
+                android:textSize="@dimen/dp_12"
+                android:textStyle="bold"
+                android:typeface="serif" />
+
+            <ImageButton
+                android:id="@+id/bookmarkButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:background="@color/transprant"
+                android:contentDescription="@string/bookmarkbtn"
+                android:src="@drawable/baseline_bookmark_add_24"
+                android:text="@string/bookmark"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -69,7 +79,7 @@
                         android:layout_weight="1.5"
                         android:drawableStart="@drawable/name"
                         android:drawablePadding="10dp"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Name"
                         android:textSize="@dimen/dp_7" />
 
@@ -95,7 +105,7 @@
                         android:layout_weight="1.5"
                         android:drawableStart="@drawable/address"
                         android:drawablePadding="10dp"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Address"
                         android:textSize="@dimen/dp_7" />
 
@@ -123,7 +133,7 @@
                         android:layout_weight="1.3"
                         android:drawableStart="@drawable/regid"
                         android:drawablePadding="10dp"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:singleLine="false"
                         android:text="Registration No"
                         android:textSize="@dimen/dp_7" />
@@ -151,7 +161,7 @@
                         android:layout_weight="1.5"
                         android:drawableStart="@drawable/phonenumber"
                         android:drawablePadding="10dp"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Contact"
                         android:textSize="@dimen/dp_7" />
 
@@ -178,7 +188,7 @@
                         android:layout_weight="1.5"
                         android:drawableStart="@drawable/mail"
                         android:drawablePadding="10dp"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Mail"
                         android:textSize="@dimen/dp_7" />
 
@@ -205,7 +215,7 @@
                         android:layout_weight="1.5"
                         android:drawableStart="@drawable/type"
                         android:drawablePadding="10dp"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Type"
                         android:textSize="@dimen/dp_7" />
 
@@ -229,7 +239,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1.5"
                         android:drawableLeft="@drawable/unique"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Unique ID"
                         android:textSize="@dimen/dp_7" />
 
@@ -253,7 +263,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1.5"
                         android:drawableLeft="@drawable/sector"
-                        android:gravity="top"
+                        android:gravity="center_vertical"
                         android:text="Sectors "
                         android:textSize="@dimen/dp_7" />
 
@@ -273,22 +283,29 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1.5"
                         android:drawableLeft="@drawable/site"
-                        android:gravity="top"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
                         android:text="Website "
                         android:textSize="@dimen/dp_7" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/NGO_site"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_button_background_on"
-                        android:text="Visit Site"
+                        android:layout_width="170dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/buttonshape"
+                        android:shadowColor="#FF664A"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="5"
+                        android:text="@string/visit_site"
+                        android:textColor="#2114FF"
                         android:textSize="@dimen/dp_7" />
+
+
                 </LinearLayout>
 
 
