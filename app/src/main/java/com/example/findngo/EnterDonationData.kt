@@ -95,7 +95,7 @@ class EnterDonationData : AppCompatActivity() {
         bindingEnterNGODonationData.uploadNGODonationImage.text.clear()
         bindingEnterNGODonationData.uploadNGODonationSiteLink.text.clear()
 
-        Toast.makeText(this@EnterDonationData, "Data is Saved", Toast.LENGTH_LONG).show()
+       /* Toast.makeText(this@EnterDonationData, "Data is Saved", Toast.LENGTH_LONG).show()*/
     }
 
 }

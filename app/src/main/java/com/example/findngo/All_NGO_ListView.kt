@@ -1,6 +1,5 @@
 package com.example.findngo
 
-import BookmarkDB
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,14 +22,13 @@ class All_NGO_ListView : AppCompatActivity() {
 
         val ListView: ListView=findViewById(R.id.ngo_listview)
 
-
-        val database = Firebase.database
-        val getNgoData=database.getReference("NGO_DATA")
+        val database = Firebase.database  //Firebase instance
+        val getNgoData=database.getReference("NGO_DATA")  //Pass child node to fetch data from firebase
 
         getNgoData.addValueEventListener(object : ValueEventListener{
-            var list = mutableListOf<String>()
-            val DataToShowMain= mutableListOf<List<String>>()
-            val ImageLinkData= mutableListOf<List<String>>()
+            var list = mutableListOf<String>()  //store ngo name to show in list view
+            val DataToShowMain= mutableListOf<List<String>>()  //store data to show in ngo main page (Complete NGO Data)
+            val ImageLinkData= mutableListOf<List<String>>()  // store ngo logo image URLs
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (i in snapshot.children){
@@ -58,7 +56,7 @@ class All_NGO_ListView : AppCompatActivity() {
                 ListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                     val selectedItem = DataToShowMain[position]
                     // Call your function with the clicked item's data here
-                    yourFunction((selectedItem))
+                    openNgoData((selectedItem))
                 }
 
             }
@@ -74,7 +72,7 @@ class All_NGO_ListView : AppCompatActivity() {
 
 
         }
-    fun yourFunction(itemData: List<String>) {
+    fun openNgoData(itemData: List<String>) {
         Log.d("ListViewData1", itemData.toString())
         val intent = Intent(this, OpenNGOData::class.java)
         intent.putStringArrayListExtra("All_NGO_Data", ArrayList(itemData))

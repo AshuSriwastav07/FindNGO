@@ -1,8 +1,6 @@
 package com.example.findngo
 
-import android.R.attr.name
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
@@ -18,6 +16,7 @@ class EnterNGOData : AppCompatActivity() {
     lateinit var bindingEnterNGOData: ActivityEnterNgodataBinding
 
     private lateinit var databaseref:DatabaseReference
+    private lateinit var DataToVerification:DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,27 +38,46 @@ class EnterNGOData : AppCompatActivity() {
             val NGOSiteLink=bindingEnterNGOData.uploadNGOSiteLink.text.toString()
 
 
-           databaseref = FirebaseDatabase.getInstance().getReference("NGO_DATA")
-           val Totalkeys:ArrayList<String> = ArrayList()
+           databaseref = FirebaseDatabase.getInstance().getReference("NGO_DATA")  //DB Ref for All Verified
+           DataToVerification = FirebaseDatabase.getInstance().getReference("DataToVerify")   //DB Ref for Data Left to verify
+           val Totalkeys:ArrayList<String> = ArrayList()  //Store Keys that verify by Admin
+           val TotalVerifykeys:ArrayList<String> = ArrayList()   //Store keys that not verified by Admin
+
+
+           DataToVerification.addListenerForSingleValueEvent(object : ValueEventListener {
+               override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                   if (dataSnapshot.exists()) {
+                       for (d in dataSnapshot.children) {
+                           TotalVerifykeys.add(d.key.toString())
+                       }
+                   }
+
+
+               }
+
+               override fun onCancelled(error: DatabaseError) {} //onCancelled
+           })
 
 
            databaseref.addListenerForSingleValueEvent(object : ValueEventListener {
                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-
                    if (dataSnapshot.exists()) {
                        for (d in dataSnapshot.children) {
-                           Totalkeys.add(d.key.toString())
+                           Totalkeys.add(d.key.toString())  //Store Keys that Verify
                        }
                    }
 
-                   val NewKeyNumber:Int=Totalkeys.size+1
+
+                   val NewKeyNumber:Int=Totalkeys.size+1+TotalVerifykeys.size
 
                    val NewDataKey= "NGO_Finder_Data_$NewKeyNumber"
 
                    val ngoData:ArrayList<String> = arrayListOf()
 
                    if(NGOName.isNotEmpty() && NGOAddress.isNotEmpty() && NGORegID.isNotEmpty() && NGOPhoneNo.isNotEmpty() && NGOEmail.isNotEmpty() && NGOType.isNotEmpty() && NGOUniqueID.isNotEmpty() && NGOImage.isNotEmpty() && NGOSectors.isNotEmpty() && NGOSiteLink.isNotEmpty()){
+
                    ngoData.add(NGOName)
                    ngoData.add(NGOAddress)
                    ngoData.add(NGORegID)
@@ -71,7 +89,7 @@ class EnterNGOData : AppCompatActivity() {
                    ngoData.add(NGOSectors)
                    ngoData.add(NGOSiteLink)
 
-                       databaseref.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
+                       DataToVerification.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
 
                            bindingEnterNGOData.uploadNGOName.text.clear()
                            bindingEnterNGOData.uploadNGOAddress.text.clear()
@@ -84,7 +102,7 @@ class EnterNGOData : AppCompatActivity() {
                            bindingEnterNGOData.uploadNGOSectors.text.clear()
                            bindingEnterNGOData.uploadNGOSiteLink.text.clear()
 
-                           Toast.makeText(this@EnterNGOData, "Data is Saved", Toast.LENGTH_LONG)
+                           Toast.makeText(this@EnterNGOData, "Data will be publish, as soon as Admin Approve!", Toast.LENGTH_LONG)
                                .show()
 
 

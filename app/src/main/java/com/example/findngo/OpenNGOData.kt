@@ -5,20 +5,20 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import com.tlc.findngo.R
-import java.util.ArrayList
 
 class OpenNGOData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_populer_ngos_view)
+        setContentView(R.layout.show_ngo_data_page)
 
         val MyDBHelper = BookmarkDB(this)
 
@@ -55,9 +55,8 @@ class OpenNGOData : AppCompatActivity() {
             val NGO_UniqueID: TextView = findViewById(R.id.NGO_UniqueID)
             val NGO_Sector: TextView = findViewById(R.id.NGO_Sectors)
             val NGO_Site: Button = findViewById(R.id.NGO_site)
+            val NGO_Imageview:ImageView=findViewById(R.id.NGO_Logo_Image)
             val bookmarkButton:ImageButton=findViewById(R.id.bookmarkButton)
-
-
 
             // Set data to TextViews
             NGO_Name.text = toShow[0]
@@ -67,6 +66,8 @@ class OpenNGOData : AppCompatActivity() {
             NGO_Mail.text = toShow[4]
             NGO_Type.text = toShow[5]
             NGO_UniqueID.text = toShow[6]
+            Picasso.get().load(toShow[7]).into(NGO_Imageview);
+
             NGO_Sector.text=toShow[8]
 
             NGO_Site.setOnClickListener{
