@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha="0.7"
-    tools:context=".EnterDonationData">
+    tools:context="com.example.findngo.EnterDonationData">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -52,6 +52,14 @@
             android:layout_height="@dimen/dp_20"
             android:ems="10"
             android:hint="Enter NGO Donation Image Link"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/uploadNGODonationPageLink"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:ems="10"
+            android:hint="Enter NGO Donation Page Link"
             android:inputType="text" />
 
         <EditText

@@ -1,7 +1,6 @@
 package com.example.findngo
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
@@ -16,6 +15,7 @@ class EnterDonationData : AppCompatActivity() {
     lateinit var bindingEnterNGODonationData: ActivityEnterDonationDataBinding
 
     private lateinit var databaseref: DatabaseReference
+    private lateinit var DataToVerification:DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,77 +25,112 @@ class EnterDonationData : AppCompatActivity() {
 
         try {
             bindingEnterNGODonationData.UploadNGODonationDataButton.setOnClickListener {
-                val NGOName: String? = bindingEnterNGODonationData.uploadNGOName.text.toString()
-                val NGOFundUse: String? =
+                val NGOName: String = bindingEnterNGODonationData.uploadNGOName.text.toString()
+                val NGOFundUse: String =
                     bindingEnterNGODonationData.uploadNGOFundUse.text.toString()
-                val NGOLogoImage: String? =
+                val NGOLogoImage: String =
                     bindingEnterNGODonationData.uploadNGODonationImage.text.toString()
-                val NGOSiteLink: String? =
+                val NGOSiteLink: String =
                     bindingEnterNGODonationData.uploadNGODonationSiteLink.text.toString()
+                val NGODonationPageLink: String =bindingEnterNGODonationData.uploadNGODonationPageLink.text.toString()
 
 
                 databaseref = FirebaseDatabase.getInstance().getReference("donation")
+                DataToVerification = FirebaseDatabase.getInstance()
+                    .getReference("DonationDataToVerify")   //DB Ref for Data Left to verify
+                val Totalkeys: ArrayList<String> = ArrayList()  //Store Keys that verify by Admin
+                val TotalVerifykeys: ArrayList<String> =
+                    ArrayList()   //Store keys that not verified by Admin
+
+
+
+                DataToVerification.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                        if (dataSnapshot.exists()) {
+                            for (d in dataSnapshot.children) {
+                                TotalVerifykeys.add(d.key.toString())
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {} //onCancelled
+                })
 
 
                 databaseref.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val Totalkeys: ArrayList<String> = ArrayList()
 
                         if (dataSnapshot.exists()) {
                             for (d in dataSnapshot.children) {
-                                Totalkeys.add(d.key.toString())
+                                Totalkeys.add(d.key.toString())  //Store Keys that Verify
                             }
                         }
 
-                        val NewKeyNumber: Int = Totalkeys.size + 1
 
-                        val NewDataKey = "$NewKeyNumber"
+                        val NewKeyNumber: Int = Totalkeys.size + 1 + TotalVerifykeys.size
+
+                        val NewDataKey = "NGO_Finder_Data_$NewKeyNumber"
 
                         val ngoData: ArrayList<String> = arrayListOf()
 
-                        if (!NGOName.isNullOrEmpty() && !NGOFundUse.isNullOrEmpty() && !NGOLogoImage.isNullOrEmpty() && !NGOSiteLink.isNullOrEmpty()) {
+
+                        if (NGOName.isNotEmpty() && NGOFundUse.isNotEmpty() && NGOLogoImage.isNotEmpty() && NGOSiteLink.isNotEmpty() && NGODonationPageLink.isNotEmpty()) {
+
                             ngoData.add(NGOName)
                             ngoData.add(NGOFundUse)
                             ngoData.add(NGOLogoImage)
+                            ngoData.add(NGODonationPageLink)
                             ngoData.add(NGOSiteLink)
 
+                            DataToVerification.child(NewDataKey).setValue(ngoData)
+                                .addOnSuccessListener {
 
-                        databaseref.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
-                            ClearInput() }.addOnFailureListener {
-                            ClearInput()
+                                    ClearInput()
+
+                                    Toast.makeText(
+                                        this@EnterDonationData,
+                                        "Data will be publish, as soon as Admin Approve!",
+                                        Toast.LENGTH_LONG
+                                    )
+                                        .show()
+
+
+                                }.addOnFailureListener {
+                                    Toast.makeText(
+                                        this@EnterDonationData,
+                                        "Failed to Save Data",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                        } else {
                             Toast.makeText(
                                 this@EnterDonationData,
-                                "Failed to Save Data",
-                                Toast.LENGTH_LONG
+                                "Please fill all the filed!",
+                                Toast.LENGTH_SHORT
                             ).show()
-                        }}else{
-                            Toast.makeText(this@EnterDonationData, "Please fill all The Filed!", Toast.LENGTH_SHORT).show()
 
                         }
-
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        Log.e("DonationPageFragment", "Error fetching data: $error")
-                        // Handle the error appropriately, e.g., display an error message to the user
+                        TODO("Not yet implemented")
                     }
                 })
 
+
             }
+        } catch (_: Exception) {
 
-
-        }catch (e:Exception){
-            Log.d("AppCrash",e.toString())
         }
     }
 
-    fun ClearInput() {
-        bindingEnterNGODonationData.uploadNGOName.text.clear()
-        bindingEnterNGODonationData.uploadNGOFundUse.text.clear()
-        bindingEnterNGODonationData.uploadNGODonationImage.text.clear()
-        bindingEnterNGODonationData.uploadNGODonationSiteLink.text.clear()
+            fun ClearInput() {
+                bindingEnterNGODonationData.uploadNGOName.text.clear()
+                bindingEnterNGODonationData.uploadNGOFundUse.text.clear()
+                bindingEnterNGODonationData.uploadNGODonationImage.text.clear()
+                bindingEnterNGODonationData.uploadNGODonationSiteLink.text.clear()
 
-       /* Toast.makeText(this@EnterDonationData, "Data is Saved", Toast.LENGTH_LONG).show()*/
+                /* Toast.makeText(this@EnterDonationData, "Data is Saved", Toast.LENGTH_LONG).show()*/
+            }
     }
-
-}

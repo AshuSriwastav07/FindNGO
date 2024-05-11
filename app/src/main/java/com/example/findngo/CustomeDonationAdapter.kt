@@ -20,7 +20,8 @@ class CustomeDonationAdapter(
     private val items: MutableList<String>, // Change to String instead of MutableList<*>
     private val details: MutableList<String>, // Change to String instead of MutableList<*>
     private val ImageLink: MutableList<String>, // Change to String instead of MutableList<*>
-    private val DonationLink: MutableList<String> // Change to String instead of MutableList<*>
+    private val NGODonationPage: MutableList<String>, // Change to String instead of MutableList<*>
+    private val NGOSitePage: MutableList<String> // Change to String instead of MutableList<*>
 ) : ArrayAdapter<String>(context, R.layout.donation_item_list, R.id.DonationNgoName, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -30,10 +31,12 @@ class CustomeDonationAdapter(
         val NameView= rowView.findViewById<TextView>(R.id.DonationNgoName)
         val DetailsView=rowView.findViewById<TextView>(R.id.DonationNgoDetails)
         val imageView=rowView.findViewById<ImageView>(R.id.donationImageView)
-        val donationbutton=rowView.findViewById<Button>(R.id.donationbutton)
+        val DonationPage=rowView.findViewById<Button>(R.id.DonationPage)
+        val DonationNGOSitePage=rowView.findViewById<Button>(R.id.DonationNGOSitePage)
 
 
-        if(items.isNotEmpty() && details.isNotEmpty() && ImageLink.isNotEmpty() && DonationLink.isNotEmpty()) {
+
+        if(items.isNotEmpty() && details.isNotEmpty() && ImageLink.isNotEmpty() && NGOSitePage.isNotEmpty()) {
             NameView.text = items[position]
             DetailsView.text = details[position]
 
@@ -44,11 +47,19 @@ class CustomeDonationAdapter(
                 .load(ImageLink[position])
                 .into(imageView)
 
-
-            donationbutton.setOnClickListener {
+            DonationPage.setOnClickListener{
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(DonationLink[position])
+                    Uri.parse(NGODonationPage[position])
+                )
+
+                context.startActivity(urlIntent)
+            }
+
+            DonationNGOSitePage.setOnClickListener {
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(NGOSitePage[position])
                 )
 
                 context.startActivity(urlIntent)
@@ -57,6 +68,8 @@ class CustomeDonationAdapter(
             Toast.makeText(context, "No Donation Data Available", Toast.LENGTH_SHORT).show()
 
         }
+
+
         return rowView
     }
 }
