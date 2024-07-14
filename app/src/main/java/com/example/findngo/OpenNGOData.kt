@@ -1,6 +1,10 @@
 package com.example.findngo
 
 import BookmarkDB
+import android.content.ActivityNotFoundException
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,7 +13,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import com.tlc.findngo.R
@@ -17,7 +21,7 @@ import com.tlc.findngo.R
 class OpenNGOData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContentView(R.layout.show_ngo_data_page)
 
         val MyDBHelper = BookmarkDB(this)
@@ -57,6 +61,9 @@ class OpenNGOData : AppCompatActivity() {
             val NGO_Site: Button = findViewById(R.id.NGO_site)
             val NGO_Imageview:ImageView=findViewById(R.id.NGO_Logo_Image)
             val bookmarkButton:ImageButton=findViewById(R.id.bookmarkButton)
+            val copyRegNumber:ImageButton=findViewById(R.id.copyRegistrationNumber)
+            val copyMailId:ImageButton=findViewById(R.id.copyEmailId)
+            val copyContactNumber:ImageButton=findViewById(R.id.copyContactNumber)
 
             // Set data to TextViews
             NGO_Name.text = toShow[0]
@@ -78,6 +85,24 @@ class OpenNGOData : AppCompatActivity() {
                 startActivity(urlIntent)
             }
 
+            copyRegNumber.setOnClickListener{
+                val textToCopy:String=NGO_Reg_ID.text.toString()
+                copyToClipboard(textToCopy)
+                Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
+            }
+
+            copyMailId.setOnClickListener {
+                val MailId=NGO_Mail.text.toString()
+                sendEmail(MailId)
+            }
+
+            copyContactNumber.setOnClickListener{
+                val number:String=NGO_Phone.text.toString()
+                copyToClipboard(number)
+            }
+
+
+            //Maintain DB for Book Marks
             val MyDBHelper = BookmarkDB(this)
             val data: ArrayList<NGO_Data_Model> = MyDBHelper.getNGO_Data()
             val list:ArrayList<String> = ArrayList()
@@ -110,6 +135,26 @@ class OpenNGOData : AppCompatActivity() {
     }
 
 
+
+    private fun copyToClipboard(text:String){
+        val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData .newPlainText("Copied Text", text)
+        clipboardManager.setPrimaryClip(clipData)
+    }
+
+
+    private fun sendEmail(mailId:String) {
+
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(mailId))
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send email..."))
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(applicationContext, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
 }

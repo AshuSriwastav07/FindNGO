@@ -55,14 +55,13 @@ class DonationPageFragment : Fragment() {
                         NGOSitePage.add(ngoData[4])
 
 
-                        Log.e("FirebaseError",ngoData[0])
-                        Log.e("FirebaseError",ngoData[1])
-                        Log.e("FirebaseError",ngoData[2])
-                        Log.e("FirebaseError",ngoData[3])
-                        Log.e("FirebaseError",ngoData[4])
-
-                        Log.e("FirebaseError","---------------------------")
-
+//                        Log.e("FirebaseError",ngoData[0])
+//                        Log.e("FirebaseError",ngoData[1])
+//                        Log.e("FirebaseError",ngoData[2])
+//                        Log.e("FirebaseError",ngoData[3])
+//                        Log.e("FirebaseError",ngoData[4])
+//                        Log.e("FirebaseError","---------------------------")
+//
 
                     }
 

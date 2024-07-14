@@ -70,7 +70,7 @@ class EnterDonationData : AppCompatActivity() {
 
                         val NewKeyNumber: Int = Totalkeys.size + 1 + TotalVerifykeys.size
 
-                        val NewDataKey = "NGO_Finder_Data_$NewKeyNumber"
+                        val NewDataKey = "$NewKeyNumber"
 
                         val ngoData: ArrayList<String> = arrayListOf()
 
@@ -130,6 +130,7 @@ class EnterDonationData : AppCompatActivity() {
                 bindingEnterNGODonationData.uploadNGOFundUse.text.clear()
                 bindingEnterNGODonationData.uploadNGODonationImage.text.clear()
                 bindingEnterNGODonationData.uploadNGODonationSiteLink.text.clear()
+                bindingEnterNGODonationData.uploadNGODonationPageLink.text.clear()
 
                 /* Toast.makeText(this@EnterDonationData, "Data is Saved", Toast.LENGTH_LONG).show()*/
             }

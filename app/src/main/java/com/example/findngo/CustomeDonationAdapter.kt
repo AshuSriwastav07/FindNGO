@@ -47,13 +47,21 @@ class CustomeDonationAdapter(
                 .load(ImageLink[position])
                 .into(imageView)
 
+
+
             DonationPage.setOnClickListener{
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(NGODonationPage[position])
                 )
 
-                context.startActivity(urlIntent)
+                if(NGODonationPage[position].contains(NGOSitePage[position])){
+                    context.startActivity(urlIntent)
+                }else{
+                    Toast.makeText(context, "Given Donation site is Different from Main WebSite. Please visit Main Website for Donation.", Toast.LENGTH_SHORT).show()
+                    context.startActivity(urlIntent)
+
+                }
             }
 
             DonationNGOSitePage.setOnClickListener {
@@ -61,6 +69,7 @@ class CustomeDonationAdapter(
                     Intent.ACTION_VIEW,
                     Uri.parse(NGOSitePage[position])
                 )
+
 
                 context.startActivity(urlIntent)
             }
