@@ -24,7 +24,7 @@ class CustomArrayAdapter(context: Context, private val items: List<String>, priv
         textView.text = items[position]
         Log.d("RTDB_Value",items.last())
 
-        Picasso.get()
+        Picasso.get()   
             .load(ImageLink[position].last())
             .into(imageView)
 

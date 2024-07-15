@@ -17,7 +17,6 @@ import com.tlc.findngo.R
 
 class DonationPageFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,17 +33,15 @@ class DonationPageFragment : Fragment() {
                 var name = mutableListOf<String>()
                 val details = mutableListOf<String>()
                 val ImageLinkData = mutableListOf<String>()
-                val donationLink = mutableListOf<String>()
+                val NGODonationPage = mutableListOf<String>()
+                val NGOSitePage = mutableListOf<String>()
 
 
                 override fun onDataChange(snapshot: DataSnapshot) {
                     name.clear()
                     details.clear()
                     ImageLinkData.clear()
-                    donationLink.clear()
-
-
-
+                    NGODonationPage.clear()
 
                     if(snapshot.exists()){
                     for (i in snapshot.children) {
@@ -54,27 +51,31 @@ class DonationPageFragment : Fragment() {
                         name.add(ngoData[0])
                         details.add(ngoData[1])
                         ImageLinkData.add(ngoData[2])
-                        donationLink.add(ngoData[3])
+                        NGODonationPage.add(ngoData[3])
+                        NGOSitePage.add(ngoData[4])
 
-                        Log.e("FirebaseError",ngoData[0])
-                        Log.e("FirebaseError",ngoData[1])
-                        Log.e("FirebaseError",ngoData[2])
-                        Log.e("FirebaseError",ngoData[3])
-                        Log.e("FirebaseError","---------------------------")
 
+//                        Log.e("FirebaseError",ngoData[0])
+//                        Log.e("FirebaseError",ngoData[1])
+//                        Log.e("FirebaseError",ngoData[2])
+//                        Log.e("FirebaseError",ngoData[3])
+//                        Log.e("FirebaseError",ngoData[4])
+//                        Log.e("FirebaseError","---------------------------")
+//
 
                     }
 
                     /*Log.d("ListViewData", name.toString())
                 Log.d("ListViewData", details.toString())
 */
-                    if(name.isNotEmpty() && details.isNotEmpty() && ImageLinkData.isNotEmpty() && donationLink.isNotEmpty()) {
+                    if(name.isNotEmpty() && details.isNotEmpty() && ImageLinkData.isNotEmpty() && NGODonationPage.isNotEmpty()) {
                         val adapter = CustomeDonationAdapter(
                             requireContext(),
                             name,
                             details,
                             ImageLinkData,
-                            donationLink
+                            NGODonationPage,
+                            NGOSitePage
                         )
                         listView.adapter = adapter
                     }

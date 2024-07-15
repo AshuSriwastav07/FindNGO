@@ -15,8 +15,8 @@ class EnterNGOData : AppCompatActivity() {
 
     lateinit var bindingEnterNGOData: ActivityEnterNgodataBinding
 
-    private lateinit var databaseref:DatabaseReference
-    private lateinit var DataToVerification:DatabaseReference
+    private lateinit var databaseRef:DatabaseReference
+    private lateinit var dataToVerification:DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +37,14 @@ class EnterNGOData : AppCompatActivity() {
             val NGOSectors=bindingEnterNGOData.uploadNGOSectors.text.toString()
             val NGOSiteLink=bindingEnterNGOData.uploadNGOSiteLink.text.toString()
 
-
-           databaseref = FirebaseDatabase.getInstance().getReference("NGO_DATA")  //DB Ref for All Verified
-           DataToVerification = FirebaseDatabase.getInstance().getReference("DataToVerify")   //DB Ref for Data Left to verify
+           val db:DatabaseReference=FirebaseDatabase.getInstance().getReference()
+           databaseRef = FirebaseDatabase.getInstance().getReference("NGO_DATA")  //DB Ref for All Verified
+           dataToVerification = FirebaseDatabase.getInstance().getReference("DataToVerify")   //DB Ref for Data Left to verify
            val Totalkeys:ArrayList<String> = ArrayList()  //Store Keys that verify by Admin
            val TotalVerifykeys:ArrayList<String> = ArrayList()   //Store keys that not verified by Admin
 
 
-           DataToVerification.addListenerForSingleValueEvent(object : ValueEventListener {
+           dataToVerification.addListenerForSingleValueEvent(object : ValueEventListener {
                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                    if (dataSnapshot.exists()) {
@@ -60,7 +60,7 @@ class EnterNGOData : AppCompatActivity() {
            })
 
 
-           databaseref.addListenerForSingleValueEvent(object : ValueEventListener {
+           databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                    if (dataSnapshot.exists()) {
@@ -89,7 +89,7 @@ class EnterNGOData : AppCompatActivity() {
                    ngoData.add(NGOSectors)
                    ngoData.add(NGOSiteLink)
 
-                       DataToVerification.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
+                       dataToVerification.child(NewDataKey).setValue(ngoData).addOnSuccessListener {
 
                            bindingEnterNGOData.uploadNGOName.text.clear()
                            bindingEnterNGOData.uploadNGOAddress.text.clear()

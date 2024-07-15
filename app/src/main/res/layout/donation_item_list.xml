@@ -66,16 +66,40 @@
                     app:srcCompat="@drawable/explore1" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/donationbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center|left"
-                android:layout_margin="8dp"
-                android:backgroundTint="#B1A9A2"
-                android:fontFamily="sans-serif"
-                android:text="Donate Now"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <Button
+                    android:id="@+id/DonationPage"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Donate Now"
+                    android:textStyle="bold"
+                    app:icon="@drawable/donate"
+                    app:iconTint="@color/transprant"
+                    app:iconTintMode="screen" />
+
+                <Button
+                    android:id="@+id/DonationNGOSitePage"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:text="Visit Site"
+                    app:icon="@drawable/internte"
+                    app:iconTint="@color/transprant"
+                    app:iconTintMode="screen" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
