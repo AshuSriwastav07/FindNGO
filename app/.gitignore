@@ -1,1 +1,6 @@
 /build
+google-services.json
+*.jks
+*.keystore
+key.properties
+signing.properties
