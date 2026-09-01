@@ -31,6 +31,7 @@ class NGORecyclerViewAdapter(
     ) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.listItemName)
         private val logoImageView: ImageView = itemView.findViewById(R.id.listImageView)
+        private val sectorTextView: TextView = itemView.findViewById(R.id.listItemSector)
         private var currentItem: NGOItem? = null
 
         init {
@@ -42,6 +43,15 @@ class NGORecyclerViewAdapter(
         fun bind(item: NGOItem) {
             currentItem = item
             nameTextView.text = item.name
+
+            if (item.sector.isNotBlank()) {
+                val primarySector = item.sector.split(",").firstOrNull()?.trim() ?: item.sector
+                sectorTextView.text = primarySector
+                sectorTextView.visibility = View.VISIBLE
+            } else {
+                sectorTextView.text = "NGO"
+                sectorTextView.visibility = View.VISIBLE
+            }
 
             if (item.logoImage.isNotBlank()) {
                 Picasso.get()

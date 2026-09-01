@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Civic Trust Design System - Core Brand Colors -->
+    <color name="primary">#006D77</color>
+    <color name="primary_dark">#00535B</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#006D77</color>
+    <color name="on_primary_container">#9BECF7</color>
+
+    <!-- Secondary Accent (Warm Terracotta) -->
+    <color name="secondary">#8C4E35</color>
+    <color name="secondary_container">#FFAD8F</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_secondary_container">#793F27</color>
+
+    <!-- Tertiary / Semantic (Verified Forest Green) -->
+    <color name="tertiary">#14553B</color>
+    <color name="tertiary_container">#E8F5E9</color>
+    <color name="on_tertiary_container">#1B5E20</color>
+    <color name="verified_green">#2D6A4F</color>
+
+    <!-- Surface & Backgrounds (Paper-like Civic Modern) -->
+    <color name="background">#F8F9FA</color>
+    <color name="surface">#F8F9FA</color>
+    <color name="surface_container_lowest">#FFFFFF</color>
+    <color name="surface_container_low">#EEF4FF</color>
+    <color name="surface_container">#E5EEFF</color>
+    <color name="surface_container_high">#DFE9FA</color>
+    <color name="surface_container_highest">#D9E3F4</color>
+
+    <!-- Text & Content Colors -->
+    <color name="on_surface">#121C28</color>
+    <color name="on_surface_variant">#4B5563</color>
+    <color name="on_surface_subtle">#6B7280</color>
+
+    <!-- Outlines & Borders -->
+    <color name="outline">#6F797A</color>
+    <color name="outline_variant">#E5E7EB</color>
+    <color name="card_border">#E2E8F0</color>
+
+    <!-- Status & Alerts -->
+    <color name="error">#BA1A1A</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_container">#FFDAD6</color>
+
+    <!-- Basic Helpers -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="transprant">#00FF0000</color>
+    <color name="transprant">#00000000</color>
 </resources>
