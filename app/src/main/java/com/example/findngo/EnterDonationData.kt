@@ -12,126 +12,102 @@ import com.tlc.findngo.databinding.ActivityEnterDonationDataBinding
 
 class EnterDonationData : AppCompatActivity() {
 
-    lateinit var bindingEnterNGODonationData: ActivityEnterDonationDataBinding
-
-    private lateinit var databaseref: DatabaseReference
-    private lateinit var DataToVerification:DatabaseReference
+    private lateinit var bindingEnterNGODonationData: ActivityEnterDonationDataBinding
+    private lateinit var databaseRef: DatabaseReference
+    private lateinit var dataToVerification: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingEnterNGODonationData = ActivityEnterDonationDataBinding.inflate(layoutInflater)
         setContentView(bindingEnterNGODonationData.root)
 
+        bindingEnterNGODonationData.submitDonationToolbar.setNavigationOnClickListener {
+            finish()
+        }
 
-        try {
-            bindingEnterNGODonationData.UploadNGODonationDataButton.setOnClickListener {
-                val NGOName: String = bindingEnterNGODonationData.uploadNGOName.text.toString()
-                val NGOFundUse: String =
-                    bindingEnterNGODonationData.uploadNGOFundUse.text.toString()
-                val NGOLogoImage: String =
-                    bindingEnterNGODonationData.uploadNGODonationImage.text.toString()
-                val NGOSiteLink: String =
-                    bindingEnterNGODonationData.uploadNGODonationSiteLink.text.toString()
-                val NGODonationPageLink: String =bindingEnterNGODonationData.uploadNGODonationPageLink.text.toString()
+        bindingEnterNGODonationData.UploadNGODonationDataButton.setOnClickListener {
+            val ngoName = bindingEnterNGODonationData.uploadNGOName.text.toString().trim()
+            val ngoFundUse = bindingEnterNGODonationData.uploadNGOFundUse.text.toString().trim()
+            val ngoLogoImage = bindingEnterNGODonationData.uploadNGODonationImage.text.toString().trim()
+            val ngoDonationPageLink = bindingEnterNGODonationData.uploadNGODonationPageLink.text.toString().trim()
+            val ngoSiteLink = bindingEnterNGODonationData.uploadNGODonationSiteLink.text.toString().trim()
 
+            if (ngoName.isEmpty() || ngoFundUse.isEmpty() || ngoLogoImage.isEmpty() ||
+                ngoDonationPageLink.isEmpty() || ngoSiteLink.isEmpty()
+            ) {
+                Toast.makeText(this@EnterDonationData, "Please fill in all required fields!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                databaseref = FirebaseDatabase.getInstance().getReference("donation")
-                DataToVerification = FirebaseDatabase.getInstance()
-                    .getReference("DonationDataToVerify")   //DB Ref for Data Left to verify
-                val Totalkeys: ArrayList<String> = ArrayList()  //Store Keys that verify by Admin
-                val TotalVerifykeys: ArrayList<String> =
-                    ArrayList()   //Store keys that not verified by Admin
+            databaseRef = FirebaseDatabase.getInstance().getReference("donation")
+            dataToVerification = FirebaseDatabase.getInstance().getReference("DonationDataToVerify")
 
-
-
-                DataToVerification.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                        if (dataSnapshot.exists()) {
-                            for (d in dataSnapshot.children) {
-                                TotalVerifykeys.add(d.key.toString())
-                            }
+            val totalVerifyKeys = ArrayList<String>()
+            dataToVerification.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (d in dataSnapshot.children) {
+                            totalVerifyKeys.add(d.key.toString())
                         }
                     }
 
-                    override fun onCancelled(error: DatabaseError) {} //onCancelled
-                })
-
-
-                databaseref.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                        if (dataSnapshot.exists()) {
-                            for (d in dataSnapshot.children) {
-                                Totalkeys.add(d.key.toString())  //Store Keys that Verify
+                    val totalKeys = ArrayList<String>()
+                    databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                for (d in snapshot.children) {
+                                    totalKeys.add(d.key.toString())
+                                }
                             }
-                        }
 
+                            val newKeyNumber = totalKeys.size + 1 + totalVerifyKeys.size
+                            val newDataKey = "$newKeyNumber"
 
-                        val NewKeyNumber: Int = Totalkeys.size + 1 + TotalVerifykeys.size
+                            val ngoData = arrayListOf(
+                                ngoName,
+                                ngoFundUse,
+                                ngoLogoImage,
+                                ngoDonationPageLink,
+                                ngoSiteLink
+                            )
 
-                        val NewDataKey = "$NewKeyNumber"
-
-                        val ngoData: ArrayList<String> = arrayListOf()
-
-
-                        if (NGOName.isNotEmpty() && NGOFundUse.isNotEmpty() && NGOLogoImage.isNotEmpty() && NGOSiteLink.isNotEmpty() && NGODonationPageLink.isNotEmpty()) {
-
-                            ngoData.add(NGOName)
-                            ngoData.add(NGOFundUse)
-                            ngoData.add(NGOLogoImage)
-                            ngoData.add(NGODonationPageLink)
-                            ngoData.add(NGOSiteLink)
-
-                            DataToVerification.child(NewDataKey).setValue(ngoData)
+                            dataToVerification.child(newDataKey).setValue(ngoData)
                                 .addOnSuccessListener {
-
-                                    ClearInput()
-
+                                    clearInput()
                                     Toast.makeText(
                                         this@EnterDonationData,
-                                        "Data will be publish, as soon as Admin Approve!",
+                                        "Donation drive submitted! It will be published upon admin verification.",
                                         Toast.LENGTH_LONG
-                                    )
-                                        .show()
-
-
-                                }.addOnFailureListener {
+                                    ).show()
+                                    finish()
+                                }
+                                .addOnFailureListener {
                                     Toast.makeText(
                                         this@EnterDonationData,
-                                        "Failed to Save Data",
+                                        "Failed to submit. Please try again.",
                                         Toast.LENGTH_LONG
                                     ).show()
                                 }
-                        } else {
-                            Toast.makeText(
-                                this@EnterDonationData,
-                                "Please fill all the filed!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
                         }
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-                })
+                        override fun onCancelled(error: DatabaseError) {
+                            Toast.makeText(this@EnterDonationData, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
 
-
-            }
-        } catch (_: Exception) {
-
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@EnterDonationData, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
-            fun ClearInput() {
-                bindingEnterNGODonationData.uploadNGOName.text.clear()
-                bindingEnterNGODonationData.uploadNGOFundUse.text.clear()
-                bindingEnterNGODonationData.uploadNGODonationImage.text.clear()
-                bindingEnterNGODonationData.uploadNGODonationSiteLink.text.clear()
-                bindingEnterNGODonationData.uploadNGODonationPageLink.text.clear()
-
-                /* Toast.makeText(this@EnterDonationData, "Data is Saved", Toast.LENGTH_LONG).show()*/
-            }
+    private fun clearInput() {
+        bindingEnterNGODonationData.uploadNGOName.text?.clear()
+        bindingEnterNGODonationData.uploadNGOFundUse.text?.clear()
+        bindingEnterNGODonationData.uploadNGODonationImage.text?.clear()
+        bindingEnterNGODonationData.uploadNGODonationSiteLink.text?.clear()
+        bindingEnterNGODonationData.uploadNGODonationPageLink.text?.clear()
     }
+}

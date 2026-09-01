@@ -60,7 +60,8 @@
                     android:text="Darpan Verified"
                     android:textColor="@color/tertiary"
                     android:textSize="11sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Search Bar Trigger -->
