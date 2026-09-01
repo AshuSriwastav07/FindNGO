@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
@@ -18,6 +19,7 @@ import com.tlc.findngo.R
 class CategoryListView : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var subtitleText: TextView
     private lateinit var adapter: NGORecyclerViewAdapter
     private var databaseRef: DatabaseReference? = null
     private var valueEventListener: ValueEventListener? = null
@@ -26,15 +28,21 @@ class CategoryListView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_list_view)
 
+        findViewById<Toolbar>(R.id.categoryToolbar)?.setNavigationOnClickListener {
+            finish()
+        }
+
         recyclerView = findViewById(R.id.category_ngo_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        val textView: TextView = findViewById(R.id.textView5)
+        val titleView: TextView = findViewById(R.id.textView5)
+        subtitleText = findViewById(R.id.categorySubtitle)
+
         val categoryName = intent.getStringExtra("categoryName") ?: "Category NGOs"
         val categoryFilter = intent.getStringExtra("categoryFilter") ?: ""
         val listDataKeys: MutableList<String>? = intent.getStringArrayListExtra("categoryKeyList")
-        textView.text = categoryName
+        titleView.text = categoryName
 
         adapter = NGORecyclerViewAdapter { selectedNgo ->
             openNgoData(selectedNgo)
@@ -65,6 +73,7 @@ class CategoryListView : AppCompatActivity() {
                     }
                 }
                 adapter.submitList(ngoList)
+                subtitleText.text = "${ngoList.size} Organizations found"
                 Log.d("CategoryListView", "Loaded ${ngoList.size} NGOs for $categoryName")
             }
 

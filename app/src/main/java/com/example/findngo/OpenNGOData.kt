@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.squareup.picasso.Picasso
 import com.tlc.findngo.R
 
@@ -25,6 +26,10 @@ class OpenNGOData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.show_ngo_data_page)
+
+        findViewById<Toolbar>(R.id.detailToolbar)?.setNavigationOnClickListener {
+            finish()
+        }
 
         dbHelper = BookmarkDB(this)
 
@@ -51,6 +56,7 @@ class OpenNGOData : AppCompatActivity() {
         val siteBtn: Button = findViewById(R.id.NGO_site)
         val logoIv: ImageView = findViewById(R.id.NGO_Logo_Image)
         val bookmarkBtn: ImageButton = findViewById(R.id.bookmarkButton)
+        val copyUniqueBtn: ImageButton? = findViewById(R.id.copyUniqueId)
         val copyRegBtn: ImageButton = findViewById(R.id.copyRegistrationNumber)
         val copyMailBtn: ImageButton = findViewById(R.id.copyEmailId)
         val copyPhoneBtn: ImageButton = findViewById(R.id.copyContactNumber)
@@ -107,6 +113,11 @@ class OpenNGOData : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "No website link available", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        copyUniqueBtn?.setOnClickListener {
+            copyToClipboard("NGO Darpan ID", item.uniqueId)
+            Toast.makeText(this, "NGO Darpan ID copied", Toast.LENGTH_SHORT).show()
         }
 
         copyRegBtn.setOnClickListener {

@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="sans-serif-medium"
-                    android:text="NGO Profile"
+                    android:text="Details"
                     android:textColor="@color/on_surface"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -185,7 +185,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="NGO Darpan Unique ID"
+                                android:text="NGO Darpan ID"
                                 android:textColor="@color/on_surface_subtle"
                                 android:textSize="11sp" />
 
@@ -200,6 +200,15 @@
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/copyUniqueId"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Copy Darpan ID"
+                            android:src="@drawable/baseline_content_copy_24"
+                            app:tint="@color/primary" />
                     </LinearLayout>
 
                     <!-- Registration Number -->
@@ -270,7 +279,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Contact Details"
+                        android:text="Contact Information"
                         android:textColor="@color/primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -406,7 +415,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Registered Address"
+                                android:text="Address"
                                 android:textColor="@color/on_surface_subtle"
                                 android:textSize="11sp" />
 
@@ -444,7 +453,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Operational Sectors"
+                        android:text="Sectors Working In"
                         android:textColor="@color/primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />

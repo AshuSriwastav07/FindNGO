@@ -1,43 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/surface"
     tools:context=".ExplorePage">
 
     <RelativeLayout
-        android:id="@+id/ExplorePage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="20dp">
+
+        <!-- Top Bar with Skip -->
+        <Button
+            android:id="@+id/skipButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:text="Skip"
+            android:textColor="@color/primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <!-- Hidden backward-compatibility background view -->
+        <RelativeLayout
+            android:id="@+id/ExplorePage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
+        <!-- Center Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- Hero Image Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:strokeColor="@color/outline_variant"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:id="@+id/ExploreimageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/explore1" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Headline -->
+            <TextView
+                android:id="@+id/onboardingTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="Discover verified NGOs"
+                android:textColor="@color/on_surface"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/onboardingSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:text="Explore a curated list of organizations with verified NGO Darpan IDs, ensuring your support reaches legitimate causes."
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp" />
+
+            <!-- Carousel Indicator Dots -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/dot1"
+                    android:layout_width="20dp"
+                    android:layout_height="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="@color/primary" />
+
+                <View
+                    android:id="@+id/dot2"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="@color/outline_variant" />
+
+                <View
+                    android:id="@+id/dot3"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="@color/outline_variant" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Bottom Action CTA -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/exploreButton"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/primary"
+            android:text="Get Started"
+            android:textColor="@color/on_primary"
+            android:textSize="16sp"
+            app:cornerRadius="12dp" />
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/ExploreimageView"
-        android:layout_width="@dimen/dp_130"
-        android:layout_height="@dimen/dp_130"
-        android:layout_marginTop="160dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
-
-    <Button
-        android:id="@+id/exploreButton"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_25"
-        android:layout_marginBottom="100dp"
-        android:text="Exlpore"
-        android:textSize="@dimen/dp_10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ExploreimageView" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

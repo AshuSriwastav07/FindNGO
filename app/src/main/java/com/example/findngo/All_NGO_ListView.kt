@@ -3,7 +3,9 @@ package com.example.findngo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
@@ -17,6 +19,7 @@ import com.tlc.findngo.R
 class All_NGO_ListView : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var subtitleText: TextView
     private lateinit var adapter: NGORecyclerViewAdapter
     private var databaseRef: DatabaseReference? = null
     private var valueEventListener: ValueEventListener? = null
@@ -25,6 +28,11 @@ class All_NGO_ListView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_ngo_list_view)
 
+        findViewById<Toolbar>(R.id.allNgoToolbar)?.setNavigationOnClickListener {
+            finish()
+        }
+
+        subtitleText = findViewById(R.id.allNgoSubtitle)
         recyclerView = findViewById(R.id.ngo_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -48,6 +56,7 @@ class All_NGO_ListView : AppCompatActivity() {
                     }
                 }
                 adapter.submitList(ngoList)
+                subtitleText.text = "${ngoList.size} Verified Organizations"
                 Log.d("All_NGO_ListView", "Loaded ${ngoList.size} NGOs")
             }
 
