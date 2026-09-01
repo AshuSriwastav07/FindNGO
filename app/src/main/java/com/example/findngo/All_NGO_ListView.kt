@@ -3,89 +3,71 @@ package com.example.findngo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.AdapterView
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.tlc.findngo.R
 
 class All_NGO_ListView : AppCompatActivity() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: NGORecyclerViewAdapter
+    private var databaseRef: DatabaseReference? = null
+    private var valueEventListener: ValueEventListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_ngo_list_view)
 
-        val ListView: ListView=findViewById(R.id.ngo_listview)
+        recyclerView = findViewById(R.id.ngo_recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
 
-        val database = Firebase.database  //Firebase instance
-        val getNgoData=database.getReference("NGO_DATA")  //Pass child node to fetch data from firebase
+        adapter = NGORecyclerViewAdapter { selectedNgo ->
+            openNgoData(selectedNgo)
+        }
+        recyclerView.adapter = adapter
 
-        getNgoData.addValueEventListener(object : ValueEventListener{
-            var list = mutableListOf<String>()  //store ngo name to show in list view
-            val DataToShowMain= mutableListOf<List<String>>()  //store data to show in ngo main page (Complete NGO Data)
-            val ImageLinkData= mutableListOf<List<String>>()  // store ngo logo image URLs
+        val database = Firebase.database
+        databaseRef = database.getReference("NGO_DATA")
 
+        valueEventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (i in snapshot.children){
-
-                    val ngoData = i.getValue() as MutableList<String>
-
-                    list.add((ngoData[0]))
-                    DataToShowMain.add(listOf(ngoData[0],ngoData[1],ngoData[2],ngoData[3],ngoData[4],ngoData[5],ngoData[6],ngoData[7],ngoData[8],ngoData[9]))
-                    ImageLinkData.add(listOf(ngoData[7]))
-
-
+                val ngoList = ArrayList<NGOItem>()
+                for (child in snapshot.children) {
+                    val key = child.key ?: ""
+                    val item = NGOItem.fromSnapshotValue(key, child.value)
+                    if (item != null && item.name.isNotBlank()) {
+                        ngoList.add(item)
+                    }
                 }
-
-                Log.d("ListViewData", list.toString())
-                Log.d("ListViewData", DataToShowMain.toString())
-
-
-
-                if(list.isNotEmpty() && ImageLinkData.isNotEmpty()) {
-                    val customAdapter = CustomArrayAdapter(applicationContext, list, ImageLinkData)
-                    ListView.adapter = customAdapter
-                }
-
-
-                ListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                    val selectedItem = DataToShowMain[position]
-                    // Call your function with the clicked item's data here
-                    openNgoData((selectedItem))
-                }
-
+                adapter.submitList(ngoList)
+                Log.d("All_NGO_ListView", "Loaded ${ngoList.size} NGOs")
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Log.e("All_NGO_ListView", "Database error: ${error.message}", error.toException())
             }
-
-
-
-        })
-
-
-
-        }
-    fun openNgoData(itemData: List<String>) {
-        Log.d("ListViewData1", itemData.toString())
-        val intent = Intent(this, OpenNGOData::class.java)
-        intent.putStringArrayListExtra("All_NGO_Data", ArrayList(itemData))
-
-        val check=itemData[8]
-        if(check.contains("Art")){
-
-            Log.d("ListViewData", "Yes")
-
         }
 
+        databaseRef?.addValueEventListener(valueEventListener as ValueEventListener)
+    }
+
+    private fun openNgoData(item: NGOItem) {
+        val intent = Intent(this, OpenNGOData::class.java).apply {
+            putStringArrayListExtra("All_NGO_Data", item.toArrayList())
+        }
         startActivity(intent)
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        valueEventListener?.let { databaseRef?.removeEventListener(it) }
+    }
 }

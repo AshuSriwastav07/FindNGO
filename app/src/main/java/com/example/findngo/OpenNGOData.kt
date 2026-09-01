@@ -19,143 +19,139 @@ import com.squareup.picasso.Picasso
 import com.tlc.findngo.R
 
 class OpenNGOData : AppCompatActivity() {
+
+    private lateinit var dbHelper: BookmarkDB
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.show_ngo_data_page)
 
-        val MyDBHelper = BookmarkDB(this)
+        dbHelper = BookmarkDB(this)
 
-        val AllNGODatatoShow: MutableList<String>? = intent.getStringArrayListExtra("All_NGO_Data")
-
-
-
-        if (AllNGODatatoShow != null) {
-            // Log the first item to ensure data is received
-            Log.d("RTDB_Value4", AllNGODatatoShow.toString())
-            // Show the received data in the activity
-            ShowDataInActivity(ArrayList(AllNGODatatoShow),MyDBHelper)
-
-
+        val rawDataList = intent.getStringArrayListExtra("All_NGO_Data")
+        if (rawDataList != null && rawDataList.isNotEmpty()) {
+            val ngoItem = NGOItem.fromList(rawDataList)
+            displayNgoData(ngoItem)
         } else {
-            Log.d("RTDB_Value5", "No data received from previous activity")
+            Log.e("OpenNGOData", "No NGO data passed to activity")
+            Toast.makeText(this, "Failed to load NGO profile", Toast.LENGTH_SHORT).show()
+            finish()
         }
-
-
     }
-    private fun ShowDataInActivity(toShow: List<String>?,DB_Helper:BookmarkDB) {
-        if (toShow != null) {
-            Log.d("RTDB_Value6", toShow[0].toString())
+
+    private fun displayNgoData(item: NGOItem) {
+        val nameTv: TextView = findViewById(R.id.NGOName)
+        val addressTv: TextView = findViewById(R.id.NGOAddress)
+        val regIdTv: TextView = findViewById(R.id.NGO_RegistrationNo)
+        val phoneTv: TextView = findViewById(R.id.NGO_PhoneNo)
+        val mailTv: TextView = findViewById(R.id.NGO_MailID)
+        val typeTv: TextView = findViewById(R.id.NGO_Type)
+        val uniqueIdTv: TextView = findViewById(R.id.NGO_UniqueID)
+        val sectorTv: TextView = findViewById(R.id.NGO_Sectors)
+        val siteBtn: Button = findViewById(R.id.NGO_site)
+        val logoIv: ImageView = findViewById(R.id.NGO_Logo_Image)
+        val bookmarkBtn: ImageButton = findViewById(R.id.bookmarkButton)
+        val copyRegBtn: ImageButton = findViewById(R.id.copyRegistrationNumber)
+        val copyMailBtn: ImageButton = findViewById(R.id.copyEmailId)
+        val copyPhoneBtn: ImageButton = findViewById(R.id.copyContactNumber)
+
+        nameTv.text = item.name
+        addressTv.text = item.address
+        regIdTv.text = item.regId
+        phoneTv.text = item.phoneNo
+        mailTv.text = item.email
+        typeTv.text = item.ngoType
+        uniqueIdTv.text = item.uniqueId
+        sectorTv.text = item.sector
+
+        if (item.logoImage.isNotBlank()) {
+            Picasso.get()
+                .load(item.logoImage)
+                .placeholder(R.drawable.name)
+                .error(R.drawable.name)
+                .resize(200, 200)
+                .centerInside()
+                .into(logoIv)
+        } else {
+            logoIv.setImageResource(R.drawable.name)
         }
-        if (toShow != null) { // Ensure there's enough data
-            Log.d("RTDB_Value7", toShow[0])
 
-            val NGO_Name: TextView = findViewById(R.id.NGOName)
-            val NGO_Address: TextView = findViewById(R.id.NGOAddress)
-            val NGO_Reg_ID: TextView = findViewById(R.id.NGO_RegistrationNo)
-            val NGO_Phone: TextView = findViewById(R.id.NGO_PhoneNo)
-            val NGO_Mail: TextView = findViewById(R.id.NGO_MailID)
-            val NGO_Type: TextView = findViewById(R.id.NGO_Type)
-            val NGO_UniqueID: TextView = findViewById(R.id.NGO_UniqueID)
-            val NGO_Sector: TextView = findViewById(R.id.NGO_Sectors)
-            val NGO_Site: Button = findViewById(R.id.NGO_site)
-            val NGO_Imageview:ImageView=findViewById(R.id.NGO_Logo_Image)
-            val bookmarkButton:ImageButton=findViewById(R.id.bookmarkButton)
-            val copyRegNumber:ImageButton=findViewById(R.id.copyRegistrationNumber)
-            val copyMailId:ImageButton=findViewById(R.id.copyEmailId)
-            val copyContactNumber:ImageButton=findViewById(R.id.copyContactNumber)
+        // Bookmark status & toggle
+        updateBookmarkUI(bookmarkBtn, item)
 
-            // Set data to TextViews
-            NGO_Name.text = toShow[0]
-            NGO_Address.text = toShow[1]
-            NGO_Reg_ID.text = toShow[2]
-            NGO_Phone.text = toShow[3]
-            NGO_Mail.text = toShow[4]
-            NGO_Type.text = toShow[5]
-            NGO_UniqueID.text = toShow[6]
-            Picasso.get().load(toShow[7]).into(NGO_Imageview);
-
-            NGO_Sector.text=toShow[8]
-
-            NGO_Site.setOnClickListener{
-                val urlIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(toShow[9])
-                )
-                startActivity(urlIntent)
+        bookmarkBtn.setOnClickListener {
+            if (dbHelper.isBookmarked(item.name)) {
+                dbHelper.removeBookmark(item.name)
+                bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_add_24)
+                Toast.makeText(this, "Removed from bookmarks", Toast.LENGTH_SHORT).show()
+            } else {
+                dbHelper.addBookmarkItem(item)
+                bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_added_24)
+                Toast.makeText(this, "Saved to bookmarks", Toast.LENGTH_SHORT).show()
             }
+        }
 
-            copyRegNumber.setOnClickListener{
-                val textToCopy:String=NGO_Reg_ID.text.toString()
-                copyToClipboard(textToCopy)
-                Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
-            }
-
-            copyMailId.setOnClickListener {
-                val MailId=NGO_Mail.text.toString()
-                sendEmail(MailId)
-            }
-
-            copyContactNumber.setOnClickListener{
-                val number:String=NGO_Phone.text.toString()
-                copyToClipboard(number)
-            }
-
-
-            //Maintain DB for Book Marks
-            val MyDBHelper = BookmarkDB(this)
-            val data: ArrayList<NGO_Data_Model> = MyDBHelper.getNGO_Data()
-            val list:ArrayList<String> = ArrayList()
-
-            if(data.isNotEmpty()) {
-
-                for(i in data.indices){
-                    Log.d("BookmarkData",data.get(i).name)
-                    list.add(data.get(i).name)
+        siteBtn.setOnClickListener {
+            if (item.siteLink.isNotBlank()) {
+                val url = if (!item.siteLink.startsWith("http://") && !item.siteLink.startsWith("https://")) {
+                    "https://${item.siteLink}"
+                } else {
+                    item.siteLink
                 }
+                try {
+                    val urlIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(urlIntent)
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Cannot open website", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "No website link available", Toast.LENGTH_SHORT).show()
             }
+        }
 
+        copyRegBtn.setOnClickListener {
+            copyToClipboard("Registration Number", item.regId)
+            Toast.makeText(this, "Registration Number copied", Toast.LENGTH_SHORT).show()
+        }
 
-            if(list.contains(toShow[0])){
-                    bookmarkButton.setImageResource(R.drawable.baseline_bookmark_added_24)
-            }else{
-
-            bookmarkButton.setOnClickListener{
-                DB_Helper.addBookmark(toShow[0],toShow[1],toShow[2], toShow[3], toShow[4], toShow[5], toShow[6],toShow[7],toShow[8],toShow[9])
-                bookmarkButton.setImageResource(R.drawable.baseline_bookmark_added_24)
-
-                        }
+        copyMailBtn.setOnClickListener {
+            if (item.email.isNotBlank()) {
+                sendEmail(item.email)
+            } else {
+                Toast.makeText(this, "No email available", Toast.LENGTH_SHORT).show()
             }
+        }
 
-
-            Log.d("ShowDataActivity", "Data Set on TextView")
-        } else {
-            Log.d("ShowDataActivity", "Insufficient data received")
+        copyPhoneBtn.setOnClickListener {
+            copyToClipboard("Contact Number", item.phoneNo)
+            Toast.makeText(this, "Contact Number copied", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun updateBookmarkUI(btn: ImageButton, item: NGOItem) {
+        if (dbHelper.isBookmarked(item.name)) {
+            btn.setImageResource(R.drawable.baseline_bookmark_added_24)
+        } else {
+            btn.setImageResource(R.drawable.baseline_bookmark_add_24)
+        }
+    }
 
-
-    private fun copyToClipboard(text:String){
+    private fun copyToClipboard(label: String, text: String) {
         val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData .newPlainText("Copied Text", text)
+        val clipData = ClipData.newPlainText(label, text)
         clipboardManager.setPrimaryClip(clipData)
     }
 
-
-    private fun sendEmail(mailId:String) {
-
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.type = "text/plain"
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(mailId))
-
+    private fun sendEmail(mailId: String) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$mailId")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(mailId))
+            putExtra(Intent.EXTRA_SUBJECT, "Inquiry via FindNGO")
+        }
         try {
-            startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            startActivity(Intent.createChooser(emailIntent, "Send email via..."))
         } catch (ex: ActivityNotFoundException) {
-            Toast.makeText(applicationContext, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "No email client installed.", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }
-

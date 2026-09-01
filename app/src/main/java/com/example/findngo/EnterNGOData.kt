@@ -37,7 +37,6 @@ class EnterNGOData : AppCompatActivity() {
             val NGOSectors=bindingEnterNGOData.uploadNGOSectors.text.toString()
             val NGOSiteLink=bindingEnterNGOData.uploadNGOSiteLink.text.toString()
 
-           val db:DatabaseReference=FirebaseDatabase.getInstance().getReference()
            databaseRef = FirebaseDatabase.getInstance().getReference("NGO_DATA")  //DB Ref for All Verified
            dataToVerification = FirebaseDatabase.getInstance().getReference("DataToVerify")   //DB Ref for Data Left to verify
            val Totalkeys:ArrayList<String> = ArrayList()  //Store Keys that verify by Admin

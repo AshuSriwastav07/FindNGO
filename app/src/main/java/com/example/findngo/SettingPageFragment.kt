@@ -31,7 +31,7 @@ class SettingPageFragment: Fragment() {
         SettingListView.adapter = arrayAdapter
 
 
-        SettingListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        SettingListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             OpenActivities(position)
         }
 

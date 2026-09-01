@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.findngo.NGOItem
 import com.example.findngo.NGO_Data_Model
 
 class BookmarkDB(context: Context) :
@@ -12,109 +13,168 @@ class BookmarkDB(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "BookmarkDB"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val TABLE_NAME = "Bookmarks"
         private const val KEY_ID = "id"
 
-        private const val KEY_NAME = "name"  //0
-        private const val KEY_ADD = "address" //1
-        private const val KEY_REG_ID = "reg_id" //2
-        private const val KEY_PHONE_NO = "Phone_NO" //3
-        private const val KEY_EMAIL = "email" //4
-        private const val KEY_TYPE = "ngo_type" //5
-        private const val KEY_UNIQUE_ID = "unique_id" //6
-        private const val KEY_LOGO_LINK = "ngo_logo" //7
-        private const val KEY_SECTOR = "sector" //8
-        private const val KEY_SITE_LINK = "site_link" //9
-
+        private const val KEY_NAME = "name"
+        private const val KEY_ADD = "address"
+        private const val KEY_REG_ID = "reg_id"
+        private const val KEY_PHONE_NO = "Phone_NO"
+        private const val KEY_EMAIL = "email"
+        private const val KEY_TYPE = "ngo_type"
+        private const val KEY_UNIQUE_ID = "unique_id"
+        private const val KEY_LOGO_LINK = "ngo_logo"
+        private const val KEY_SECTOR = "sector"
+        private const val KEY_SITE_LINK = "site_link"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE $TABLE_NAME (" +
-                "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-
-                "$KEY_NAME UNIQUE, TEXT, " +
-                "$KEY_ADD TEXT, " +
-                "$KEY_REG_ID TEXT, " +
-                "$KEY_PHONE_NO TEXT, " +
-                "$KEY_EMAIL TEXT, " +
-                "$KEY_TYPE TEXT, " +
-                "$KEY_UNIQUE_ID TEXT, " +
-                "$KEY_LOGO_LINK TEXT, " +
-                "$KEY_SECTOR TEXT, " +
-                "$KEY_SITE_LINK TEXT" +
-
-                ")")
-
-        Log.d("SQLDatabase", "DATABASE On CREATED")
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
+                    "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "$KEY_NAME TEXT UNIQUE," +
+                    "$KEY_ADD TEXT," +
+                    "$KEY_REG_ID TEXT," +
+                    "$KEY_PHONE_NO TEXT," +
+                    "$KEY_EMAIL TEXT," +
+                    "$KEY_TYPE TEXT," +
+                    "$KEY_UNIQUE_ID TEXT," +
+                    "$KEY_LOGO_LINK TEXT," +
+                    "$KEY_SECTOR TEXT," +
+                    "$KEY_SITE_LINK TEXT" +
+                    ")"
+        )
+        Log.d("BookmarkDB", "Database table created successfully")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
-        Log.d("SQLDatabase", "DATABASE OnUpgrade")
         onCreate(db)
     }
 
     fun addBookmark(
-        NGO_Name: String,
-        NGO_Address: String,
-        NGO_Reg_ID: String,
-        NGO_Phone_No: String,
-        NGO_Email: String,
-        NGO_Type: String,
-        NGO_UniqueID: String,
-        NGO_Logo: String,
-        NGO_Sector: String,
-        NGO_Site_Link: String,
-    ) {
+        ngoName: String,
+        ngoAddress: String,
+        ngoRegId: String,
+        ngoPhoneNo: String,
+        ngoEmail: String,
+        ngoType: String,
+        ngoUniqueId: String,
+        ngoLogo: String,
+        ngoSector: String,
+        ngoSiteLink: String
+    ): Long {
         val db = this.writableDatabase
-        val values = ContentValues()
+        val values = ContentValues().apply {
+            put(KEY_NAME, ngoName)
+            put(KEY_ADD, ngoAddress)
+            put(KEY_REG_ID, ngoRegId)
+            put(KEY_PHONE_NO, ngoPhoneNo)
+            put(KEY_EMAIL, ngoEmail)
+            put(KEY_TYPE, ngoType)
+            put(KEY_UNIQUE_ID, ngoUniqueId)
+            put(KEY_LOGO_LINK, ngoLogo)
+            put(KEY_SECTOR, ngoSector)
+            put(KEY_SITE_LINK, ngoSiteLink)
+        }
 
-        values.put(KEY_NAME, NGO_Name)
-        values.put(KEY_ADD, NGO_Address)
-        values.put(KEY_REG_ID, NGO_Reg_ID)
-        values.put(KEY_PHONE_NO, NGO_Phone_No)
-        values.put(KEY_EMAIL, NGO_Email)
-        values.put(KEY_TYPE, NGO_Type)
-        values.put(KEY_UNIQUE_ID, NGO_UniqueID)
-        values.put(KEY_LOGO_LINK, NGO_Logo)
-        values.put(KEY_SECTOR, NGO_Sector)
-        values.put(KEY_SITE_LINK, NGO_Site_Link)
-
-        db.insert(TABLE_NAME, null, values)
-        Log.d("SQLDatabase", "DATABASE CREATED")
+        val result = db.insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE)
         db.close()
+        return result
+    }
+
+    fun addBookmarkItem(item: NGOItem): Long {
+        return addBookmark(
+            item.name,
+            item.address,
+            item.regId,
+            item.phoneNo,
+            item.email,
+            item.ngoType,
+            item.uniqueId,
+            item.logoImage,
+            item.sector,
+            item.siteLink
+        )
+    }
+
+    fun isBookmarked(name: String): Boolean {
+        if (name.isBlank()) return false
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT 1 FROM $TABLE_NAME WHERE $KEY_NAME = ? LIMIT 1", arrayOf(name))
+        val exists = cursor.count > 0
+        cursor.close()
+        db.close()
+        return exists
+    }
+
+    fun removeBookmark(name: String): Int {
+        val db = this.writableDatabase
+        val deletedRows = db.delete(TABLE_NAME, "$KEY_NAME = ?", arrayOf(name))
+        db.close()
+        return deletedRows
+    }
+
+    fun getAllBookmarks(): List<NGOItem> {
+        val db = this.readableDatabase
+        val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $KEY_ID DESC", null)
+        val items = ArrayList<NGOItem>()
+
+        cursor.use {
+            if (it.moveToFirst()) {
+                val nameIdx = it.getColumnIndex(KEY_NAME)
+                val addIdx = it.getColumnIndex(KEY_ADD)
+                val regIdx = it.getColumnIndex(KEY_REG_ID)
+                val phoneIdx = it.getColumnIndex(KEY_PHONE_NO)
+                val emailIdx = it.getColumnIndex(KEY_EMAIL)
+                val typeIdx = it.getColumnIndex(KEY_TYPE)
+                val uniqueIdx = it.getColumnIndex(KEY_UNIQUE_ID)
+                val logoIdx = it.getColumnIndex(KEY_LOGO_LINK)
+                val sectorIdx = it.getColumnIndex(KEY_SECTOR)
+                val siteIdx = it.getColumnIndex(KEY_SITE_LINK)
+
+                do {
+                    items.add(
+                        NGOItem(
+                            name = if (nameIdx >= 0) it.getString(nameIdx) ?: "" else "",
+                            address = if (addIdx >= 0) it.getString(addIdx) ?: "" else "",
+                            regId = if (regIdx >= 0) it.getString(regIdx) ?: "" else "",
+                            phoneNo = if (phoneIdx >= 0) it.getString(phoneIdx) ?: "" else "",
+                            email = if (emailIdx >= 0) it.getString(emailIdx) ?: "" else "",
+                            ngoType = if (typeIdx >= 0) it.getString(typeIdx) ?: "" else "",
+                            uniqueId = if (uniqueIdx >= 0) it.getString(uniqueIdx) ?: "" else "",
+                            logoImage = if (logoIdx >= 0) it.getString(logoIdx) ?: "" else "",
+                            sector = if (sectorIdx >= 0) it.getString(sectorIdx) ?: "" else "",
+                            siteLink = if (siteIdx >= 0) it.getString(siteIdx) ?: "" else ""
+                        )
+                    )
+                } while (it.moveToNext())
+            }
+        }
+        db.close()
+        return items
     }
 
     @SuppressLint("Range")
     fun getNGO_Data(): ArrayList<NGO_Data_Model> {
-        val db: SQLiteDatabase = this.readableDatabase
-        val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
-        val data = ArrayList<NGO_Data_Model>()
-
-        while (cursor.moveToNext()) {
-            val model = NGO_Data_Model()
-
-            // Check if each value retrieved from the cursor is not null before assigning it
-            model.name = cursor.getString(1) ?: ""
-            model.address = cursor.getString(cursor.getColumnIndex(KEY_ADD)) ?: ""
-            model.reg_id = cursor.getString(cursor.getColumnIndex(KEY_REG_ID)) ?: ""
-            model.phone_no = cursor.getString(cursor.getColumnIndex(KEY_PHONE_NO)) ?: ""
-            model.email = cursor.getString(cursor.getColumnIndex(KEY_EMAIL)) ?: ""
-            model.type = cursor.getString(cursor.getColumnIndex(KEY_TYPE)) ?: ""
-            model.unique_id = cursor.getString(cursor.getColumnIndex(KEY_UNIQUE_ID)) ?: ""
-            model.logo_image = cursor.getString(cursor.getColumnIndex(KEY_LOGO_LINK)) ?: ""
-            model.sector = cursor.getString(cursor.getColumnIndex(KEY_SECTOR)) ?: ""
-            model.site_link = cursor.getString(cursor.getColumnIndex(KEY_SITE_LINK)) ?: ""
-
-            data.add(model)
+        val items = getAllBookmarks()
+        val legacyList = ArrayList<NGO_Data_Model>()
+        for (item in items) {
+            val model = NGO_Data_Model().apply {
+                name = item.name
+                address = item.address
+                reg_id = item.regId
+                phone_no = item.phoneNo
+                email = item.email
+                type = item.ngoType
+                unique_id = item.uniqueId
+                logo_image = item.logoImage
+                sector = item.sector
+                site_link = item.siteLink
+            }
+            legacyList.add(model)
         }
-
-        cursor.close()
-        db.close()
-
-        return data
+        return legacyList
     }
-
-
 }

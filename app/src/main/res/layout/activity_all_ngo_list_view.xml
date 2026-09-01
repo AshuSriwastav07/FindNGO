@@ -21,25 +21,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
             android:text="All NGO List"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="@dimen/dp_10"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/ngo_listview"
-            style="@android:style/Widget.DeviceDefault.Light.ExpandableListView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ngo_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:dividerHeight="3dp"
-            android:paddingTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
