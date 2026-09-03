@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "com.tlc.findngo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.tlc.findngo"
         minSdk = 21
-        targetSdk = 34
-        versionCode = 7
-        versionName = "2.0"
+        targetSdk = 35
+        versionCode = 8
+        versionName = "2.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,6 +39,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
 

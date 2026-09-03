@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FindNGO"
         android:enableOnBackInvokedCallback="true"
-        tools:targetApi="33">
+        tools:targetApi="35">
         <activity
             android:name="com.example.findngo.AboutUs"
             android:exported="false" />
