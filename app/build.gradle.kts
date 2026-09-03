@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "com.tlc.findngo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.tlc.findngo"
         minSdk = 21
-        targetSdk = 35
-        versionCode = 8
-        versionName = "2.1"
+        targetSdk = 36
+        versionCode = 9
+        versionName = "2.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
